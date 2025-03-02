@@ -11,16 +11,23 @@ Route::get('/', function () {
 })->name('Home'); // Home no depende de AuthController
 
 Route::get('/login', function () {
-    return view('login');
-})->name('login'); // Login como vista pública
+    return view('auth.login');
+})->name('login');
 
 Route::get('/register', function () {
-    return view('register');
-})->name('register'); // register como vista pública
+    return view('auth.register');
+})->name('register');
+
+Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard');
+});
 
 // Rutas de autenticación (usando AuthController)
 Route::post('/custom-login', [AuthController::class, 'login'])->name('custom-login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
 
 // Rutas privadas (requieren autenticación)
 // routes/web.php

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -20,8 +22,31 @@ class AuthController extends Controller
         }
 
         // Si no está logado le mostramos la vista con el formulario de login
-        return view('login');
+        return view('auth.login');
     }
+
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'rol' => 0,
+            'email_verified_at' => now(),
+            'remember_token' => \Str::random(10),
+        ]);
+
+        Auth::login($user);
+
+        return redirect()->route('logados');
+    }
+
 
     /**
      * Función que se encarga de recibir los datos del formulario de login, comprobar que el usuario existe y
@@ -45,10 +70,10 @@ class AuthController extends Controller
             // Check the user's role and redirect accordingly
             if ($user->rol == 1) {
                 // Redirect to admin dashboard
-                return redirect()->intended('admin/dashboard');
+                return redirect()->route('dashboard');
             } else {
                 // Redirect to user dashboard
-                return redirect()->intended('user/dashboard');
+                return redirect()->route('user.dashboard');
             }
         }
 
@@ -81,8 +106,13 @@ class AuthController extends Controller
         return redirect('/')->with('success', 'Has cerrado sesión correctamente.');
     }
 
+    public function showRegistrationForm()
+    {
+        return view('auth.register');
+    }
+
     public function showLoginForm()
     {
-        return view('login');
+        return view('auth.login');
     }
 }
