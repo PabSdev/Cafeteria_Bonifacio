@@ -19,7 +19,7 @@ Route::get('/register', function () {
 })->name('register');
 
 Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
+    return view('private.dashboard');
 });
 
 // Rutas de autenticación (usando AuthController)
