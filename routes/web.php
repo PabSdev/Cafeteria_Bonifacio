@@ -25,7 +25,6 @@ Route::get('/admin/dashboard', function () {
 // Rutas de autenticación (usando AuthController)
 Route::post('/custom-login', [AuthController::class, 'login'])->name('custom-login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
 Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 
