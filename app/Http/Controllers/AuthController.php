@@ -28,6 +28,7 @@ class AuthController extends Controller
      * en caso correcto logar al usuario
      */
 // app/Http/Controllers/AuthController.php
+    // app/Http/Controllers/AuthController.php
     public function login(Request $request)
     {
         // Validate the request data
@@ -39,7 +40,16 @@ class AuthController extends Controller
         // Attempt to log the user in with the remember option
         if (Auth::attempt($credentials, $request->filled('remember'))) {
             // Authentication passed...
-            return redirect()->intended('logados');
+            $user = Auth::user();
+
+            // Check the user's role and redirect accordingly
+            if ($user->rol == 1) {
+                // Redirect to admin dashboard
+                return redirect()->intended('admin/dashboard');
+            } else {
+                // Redirect to user dashboard
+                return redirect()->intended('user/dashboard');
+            }
         }
 
         // Authentication failed...
