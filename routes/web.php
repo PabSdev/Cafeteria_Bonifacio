@@ -27,6 +27,7 @@ Route::post('/custom-login', [AuthController::class, 'login'])->name('custom-log
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
+Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
 // Rutas privadas (requieren autenticación)
 // routes/web.php

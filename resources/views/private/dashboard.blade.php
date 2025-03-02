@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+@php use App\Models\User; @endphp
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -59,7 +60,7 @@
                     <div class="flex justify-between items-center">
                         <div>
                             <p class="text-gray-500 text-sm">Total Users</p>
-                            <h3 class="text-3xl font-bold">{{ \App\Models\User::count() }}</h3>
+                            <h3 class="text-3xl font-bold">{{ User::count() }}</h3>
                         </div>
                         <div class="bg-blue-100 p-3 rounded-full">
                             <i class="fas fa-users text-blue-500"></i>
@@ -81,7 +82,7 @@
                     <div class="flex justify-between items-center">
                         <div>
                             <p class="text-gray-500 text-sm">Admins</p>
-                            <h3 class="text-3xl font-bold">{{ \App\Models\User::where('rol', 1)->count() }}</h3>
+                            <h3 class="text-3xl font-bold">{{ User::where('rol', 1)->count() }}</h3>
                         </div>
                         <div class="bg-purple-100 p-3 rounded-full">
                             <i class="fas fa-user-shield text-purple-500"></i>
@@ -125,7 +126,7 @@
                         </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                        @foreach(\App\Models\User::all() as $user)
+                        @foreach(User::all() as $user)
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
@@ -151,10 +152,12 @@
                                     {{ $user->created_at->format('M d, Y') }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <button class="text-blue-600 hover:text-blue-900 mr-3"><i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="text-red-600 hover:text-red-900"><i class="fas fa-trash"></i>
-                                    </button>
+                                    <button class="text-blue-600 hover:text-blue-900 mr-3"><i class="fas fa-edit"></i></button>
+                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?');" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-600 hover:text-red-900"><i class="fas fa-trash"></i></button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

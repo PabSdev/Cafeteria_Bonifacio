@@ -26,7 +26,7 @@
                 <div class="text-center">
                     <i class="fas fa-user-plus text-5xl text-white mb-3"></i>
                     <h2 class="text-2xl font-bold text-white">Crear una cuenta</h2>
-                    <p class="text-white/80 mt-2">Únete a la comunidad de Cafetería Loli</p>
+                    <p class="text-white/80 mt-2">Únete a la comunidad de Cafetería Bonifacio</p>
                 </div>
 
                 <!-- Decorative wave -->
@@ -179,7 +179,7 @@
             </a>
         </div>
         <div class="mt-4 text-sm text-[#bdc3c7]">
-            &copy; 2024 Cafetería Loli. Todos los derechos reservados.
+            &copy; 2024 Cafetería Bonifacio. Todos los derechos reservados.
         </div>
     </div>
 </footer>

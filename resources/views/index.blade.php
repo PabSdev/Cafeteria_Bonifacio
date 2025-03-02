@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     @vite('resources/css/app.css')
     @vite('resources/css/animation.css')
-    <title>Cafeteria Loli</title>
+    <title>Cafeteria Bonifacio</title>
 </head>
 
 <body class="font-sans">
@@ -17,7 +17,7 @@
         <div class="flex justify-between items-center h-16">
             <a href="#" class="flex items-center gap-2">
                 <i class="fas fa-coffee text-2xl text-[#f39c12]"></i>
-                <h2 class="text-xl font-bold text-[#f39c12]">Cafeteria Loli</h2>
+                <h2 class="text-xl font-bold text-[#f39c12]">Cafeteria Bonifacio</h2>
             </a>
 
             <!-- Menú principal (escritorio) -->
@@ -234,7 +234,7 @@
                 A lo largo de los años, hemos crecido manteniendo nuestra esencia y calidad.
             </p>
             <p class="text-base sm:text-lg mb-8 text-[#bdc3c7]">
-                Hoy, Cafetería Loli es un referente en Madrid, un lugar donde cada cliente es parte
+                Hoy, Cafetería Bonifacio es un referente en Madrid, un lugar donde cada cliente es parte
                 de nuestra familia y cada taza cuenta una historia.
             </p>
 
@@ -336,7 +336,7 @@
                             </div>
                             <div>
                                 <h4 class="font-medium mb-1">Email</h4>
-                                <p class="text-[#bdc3c7]">info@cafeterialoli.es</p>
+                                <p class="text-[#bdc3c7]">info@cafeteriabonifacio.es</p>
                             </div>
                         </div>
 
