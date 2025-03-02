@@ -14,6 +14,10 @@ Route::get('/login', function () {
     return view('login');
 })->name('login'); // Login como vista pública
 
+Route::get('/register', function () {
+    return view('register');
+})->name('register'); // register como vista pública
+
 // Rutas de autenticación (usando AuthController)
 Route::post('/custom-login', [AuthController::class, 'login'])->name('custom-login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

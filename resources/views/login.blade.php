@@ -98,7 +98,8 @@
 
                     <div class="text-center mt-6">
                         <span class="text-sm text-[#2c3e50]">¿No tienes una cuenta? </span>
-                        <a href="#" class="text-sm font-medium text-[#f39c12] hover:text-[#e67e22]">Regístrate</a>
+                        <a href="/register"
+                           class="text-sm font-medium text-[#f39c12] hover:text-[#e67e22]">Regístrate</a>
                     </div>
 
                     <div class="relative my-6">
