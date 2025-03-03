@@ -10,9 +10,18 @@
 </head>
 <body class="bg-gray-100">
 <div class="min-h-screen flex flex-col">
-    <!-- Sidebar -->
+    <!-- Mobile Header -->
+    <div class="lg:hidden bg-gray-800 text-white p-4 flex justify-between items-center">
+        <h1 class="text-xl font-semibold">Admin Panel</h1>
+        <button id="mobile-menu-button" class="text-white">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
+    </div>
+
     <div class="flex flex-1">
-        <aside class="w-64 bg-gray-800 text-white fixed h-full">
+        <!-- Sidebar - hidden on mobile by default -->
+        <aside id="sidebar"
+               class="w-64 bg-gray-800 text-white fixed h-full z-20 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
             <div class="p-6">
                 <h1 class="text-2xl font-semibold">Admin Panel</h1>
             </div>
@@ -46,45 +55,45 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 ml-64 p-8">
+        <main class="flex-1 w-full lg:ml-64 p-4 lg:p-8">
             <div class="flex justify-between items-center mb-8">
-                <h2 class="text-3xl font-semibold text-gray-800">Dashboard</h2>
+                <h2 class="text-xl lg:text-3xl font-semibold text-gray-800">Dashboard</h2>
                 <div>
-                    <span class="text-gray-600">Welcome, {{ Auth::user()->name }}</span>
+                    <span class="text-gray-600 text-sm lg:text-base">Welcome, {{ Auth::user()->name }}</span>
                 </div>
             </div>
 
             <!-- Stats -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="bg-white rounded-lg shadow p-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow p-4 lg:p-6">
                     <div class="flex justify-between items-center">
                         <div>
-                            <p class="text-gray-500 text-sm">Total Users</p>
-                            <h3 class="text-3xl font-bold">{{ User::count() }}</h3>
+                            <p class="text-gray-500 text-xs lg:text-sm">Total Users</p>
+                            <h3 class="text-xl lg:text-3xl font-bold">{{ User::count() }}</h3>
                         </div>
-                        <div class="bg-blue-100 p-3 rounded-full">
+                        <div class="bg-blue-100 p-2 lg:p-3 rounded-full">
                             <i class="fas fa-users text-blue-500"></i>
                         </div>
                     </div>
                 </div>
-                <div class="bg-white rounded-lg shadow p-6">
+                <div class="bg-white rounded-lg shadow p-4 lg:p-6">
                     <div class="flex justify-between items-center">
                         <div>
-                            <p class="text-gray-500 text-sm">Total Products</p>
-                            <h3 class="text-3xl font-bold">0</h3>
+                            <p class="text-gray-500 text-xs lg:text-sm">Total Products</p>
+                            <h3 class="text-xl lg:text-3xl font-bold">0</h3>
                         </div>
-                        <div class="bg-green-100 p-3 rounded-full">
+                        <div class="bg-green-100 p-2 lg:p-3 rounded-full">
                             <i class="fas fa-box text-green-500"></i>
                         </div>
                     </div>
                 </div>
-                <div class="bg-white rounded-lg shadow p-6">
+                <div class="bg-white rounded-lg shadow p-4 lg:p-6">
                     <div class="flex justify-between items-center">
                         <div>
-                            <p class="text-gray-500 text-sm">Admins</p>
-                            <h3 class="text-3xl font-bold">{{ User::where('rol', 1)->count() }}</h3>
+                            <p class="text-gray-500 text-xs lg:text-sm">Admins</p>
+                            <h3 class="text-xl lg:text-3xl font-bold">{{ User::where('rol', 1)->count() }}</h3>
                         </div>
-                        <div class="bg-purple-100 p-3 rounded-full">
+                        <div class="bg-purple-100 p-2 lg:p-3 rounded-full">
                             <i class="fas fa-user-shield text-purple-500"></i>
                         </div>
                     </div>
@@ -94,112 +103,124 @@
             <!-- Users Table -->
             <section id="users" class="mb-12">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-2xl font-semibold text-gray-800">Users</h3>
-                    <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
-                        <i class="fas fa-plus mr-2"></i> Add User
-                    </button>
-                </div>
+                    <h3 class="text-lg lg:text-2xl font-semibold text-gray-800">Users</h3>
+                    <a href="{{ route('users.create') }}"
+                       class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 lg:px-4 lg:py-2 rounded text-sm lg:text-base">
+                        <i class="fas fa-plus mr-1 lg:mr-2"></i> Add User
+                    </a></div>
                 <div class="bg-white rounded-lg shadow overflow-hidden">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                        <tr>
-                            <th scope="col"
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Name
-                            </th>
-                            <th scope="col"
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Email
-                            </th>
-                            <th scope="col"
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Role
-                            </th>
-                            <th scope="col"
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Registered
-                            </th>
-                            <th scope="col"
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Actions
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                        @foreach(User::all() as $user)
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div
-                                            class="flex-shrink-0 h-10 w-10 bg-gray-200 rounded-full flex items-center justify-center">
-                                            <i class="fas fa-user text-gray-500"></i>
+                                <th scope="col"
+                                    class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Name
+                                </th>
+                                <th scope="col"
+                                    class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
+                                    Email
+                                </th>
+                                <th scope="col"
+                                    class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Role
+                                </th>
+                                <th scope="col"
+                                    class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
+                                    Registered
+                                </th>
+                                <th scope="col"
+                                    class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Actions
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                            @foreach(User::all() as $user)
+                                <tr>
+                                    <td class="px-4 lg:px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div
+                                                class="flex-shrink-0 h-8 w-8 lg:h-10 lg:w-10 bg-gray-200 rounded-full flex items-center justify-center">
+                                                <i class="fas fa-user text-gray-500"></i>
+                                            </div>
+                                            <div class="ml-3 lg:ml-4">
+                                                <div
+                                                    class="text-xs lg:text-sm font-medium text-gray-900">{{ $user->name }}</div>
+                                                <div class="text-xs text-gray-500 sm:hidden">{{ $user->email }}</div>
+                                            </div>
                                         </div>
-                                        <div class="ml-4">
-                                            <div class="text-sm font-medium text-gray-900">{{ $user->name }}</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-900">{{ $user->email }}</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                    </td>
+                                    <td class="px-4 lg:px-6 py-4 whitespace-nowrap hidden sm:table-cell">
+                                        <div class="text-xs lg:text-sm text-gray-900">{{ $user->email }}</div>
+                                    </td>
+                                    <td class="px-4 lg:px-6 py-4 whitespace-nowrap">
                                         <span
                                             class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $user->rol == 1 ? 'bg-purple-100 text-purple-800' : 'bg-green-100 text-green-800' }}">
                                             {{ $user->rol == 1 ? 'Admin' : 'User' }}
                                         </span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {{ $user->created_at->format('M d, Y') }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <button class="text-blue-600 hover:text-blue-900 mr-3"><i class="fas fa-edit"></i></button>
-                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?');" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:text-red-900"><i class="fas fa-trash"></i></button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                                    </td>
+                                    <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm text-gray-500 hidden md:table-cell">
+                                        {{ $user->created_at->format('M d, Y') }}
+                                    </td>
+                                    <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm font-medium">
+                                        <a href="{{ route('users.edit', $user->id) }}" class="text-blue-600 hover:text-blue-900 mr-2 lg:mr-3">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form action="{{ route('users.destroy', $user->id) }}" method="POST"
+                                              onsubmit="return confirm('Are you sure you want to delete this user?');"
+                                              style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-600 hover:text-red-900"><i
+                                                    class="fas fa-trash"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
             <!-- Product Form -->
             <section id="products" class="mb-12">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-2xl font-semibold text-gray-800">Add Product</h3>
+                    <h3 class="text-lg lg:text-2xl font-semibold text-gray-800">Add Product</h3>
                 </div>
-                <div class="bg-white rounded-lg shadow p-6">
+                <div class="bg-white rounded-lg shadow p-4 lg:p-6">
                     <form>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 mb-6">
                             <div>
-                                <label for="product_name" class="block text-sm font-medium text-gray-700 mb-1">Product
+                                <label for="product_name"
+                                       class="block text-xs lg:text-sm font-medium text-gray-700 mb-1">Product
                                     Name</label>
                                 <input type="text" name="product_name" id="product_name"
-                                       class="w-full p-2 border border-gray-300 rounded-md">
+                                       class="w-full p-2 border border-gray-300 rounded-md text-sm">
                             </div>
                             <div>
                                 <label for="product_price"
-                                       class="block text-sm font-medium text-gray-700 mb-1">Price</label>
+                                       class="block text-xs lg:text-sm font-medium text-gray-700 mb-1">Price</label>
                                 <input type="number" name="product_price" id="product_price"
-                                       class="w-full p-2 border border-gray-300 rounded-md">
+                                       class="w-full p-2 border border-gray-300 rounded-md text-sm">
                             </div>
                         </div>
                         <div class="mb-6">
-                            <label for="product_description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                            <label for="product_description"
+                                   class="block text-xs lg:text-sm font-medium text-gray-700 mb-1">Description</label>
                             <textarea name="product_description" id="product_description" rows="3"
-                                      class="w-full p-2 border border-gray-300 rounded-md"></textarea>
+                                      class="w-full p-2 border border-gray-300 rounded-md text-sm"></textarea>
                         </div>
                         <div class="mb-6">
-                            <label for="product_image" class="block text-sm font-medium text-gray-700 mb-1">Product
+                            <label for="product_image" class="block text-xs lg:text-sm font-medium text-gray-700 mb-1">Product
                                 Image</label>
                             <input type="file" name="product_image" id="product_image"
-                                   class="w-full p-2 border border-gray-300 rounded-md">
+                                   class="w-full p-2 border border-gray-300 rounded-md text-sm">
                         </div>
-                        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
-                            <i class="fas fa-save mr-2"></i> Save Product
+                        <button type="submit"
+                                class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 lg:px-4 lg:py-2 rounded text-sm lg:text-base">
+                            <i class="fas fa-save mr-1 lg:mr-2"></i> Save Product
                         </button>
                     </form>
                 </div>
@@ -207,5 +228,7 @@
         </main>
     </div>
 </div>
+
+@vite("resources/js/responsivedashboard.js")
 </body>
 </html>
