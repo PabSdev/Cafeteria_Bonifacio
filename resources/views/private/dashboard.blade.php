@@ -1,6 +1,6 @@
-@php use App\Models\User; @endphp
+@php use App\Models\User, App\Models\Productos; @endphp
     <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -184,45 +184,88 @@
                 </div>
             </section>
 
-            <!-- Product Form -->
+            <!-- Product Information -->
             <section id="products" class="mb-12">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-lg lg:text-2xl font-semibold text-gray-800">Add Product</h3>
+                    <h3 class="text-lg lg:text-2xl font-semibold text-gray-800">Products</h3>
+                    <a href="{{ route("products.create") }}"
+                       class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 lg:px-4 lg:py-2 rounded text-sm lg:text-base">
+                        <i class="fas fa-plus mr-1 lg:mr-2"></i> Add Product
+                    </a>
                 </div>
-                <div class="bg-white rounded-lg shadow p-4 lg:p-6">
-                    <form>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 mb-6">
-                            <div>
-                                <label for="product_name"
-                                       class="block text-xs lg:text-sm font-medium text-gray-700 mb-1">Product
-                                    Name</label>
-                                <input type="text" name="product_name" id="product_name"
-                                       class="w-full p-2 border border-gray-300 rounded-md text-sm">
-                            </div>
-                            <div>
-                                <label for="product_price"
-                                       class="block text-xs lg:text-sm font-medium text-gray-700 mb-1">Price</label>
-                                <input type="number" name="product_price" id="product_price"
-                                       class="w-full p-2 border border-gray-300 rounded-md text-sm">
-                            </div>
-                        </div>
-                        <div class="mb-6">
-                            <label for="product_description"
-                                   class="block text-xs lg:text-sm font-medium text-gray-700 mb-1">Description</label>
-                            <textarea name="product_description" id="product_description" rows="3"
-                                      class="w-full p-2 border border-gray-300 rounded-md text-sm"></textarea>
-                        </div>
-                        <div class="mb-6">
-                            <label for="product_image" class="block text-xs lg:text-sm font-medium text-gray-700 mb-1">Product
-                                Image</label>
-                            <input type="file" name="product_image" id="product_image"
-                                   class="w-full p-2 border border-gray-300 rounded-md text-sm">
-                        </div>
-                        <button type="submit"
-                                class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 lg:px-4 lg:py-2 rounded text-sm lg:text-base">
-                            <i class="fas fa-save mr-1 lg:mr-2"></i> Save Product
-                        </button>
-                    </form>
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col"
+                                    class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Product Name
+                                </th>
+                                <th scope="col"
+                                    class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
+                                    Price
+                                </th>
+                                <th scope="col"
+                                    class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Stock
+                                </th>
+                                <th scope="col"
+                                    class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Actions
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                            @php $productos = Productos::all(); @endphp
+                            @if(count($productos) > 0)
+                                @foreach($productos as $product)
+                                    <tr>
+                                        <td class="px-4 lg:px-6 py-4 whitespace-nowrap">
+                                            <div class="flex items-center">
+                                                <div class="flex-shrink-0 h-8 w-8 lg:h-10 lg:w-10 bg-gray-100 rounded flex items-center justify-center">
+                                                    <i class="fas fa-box text-gray-500"></i>
+                                                </div>
+                                                <div class="ml-3 lg:ml-4">
+                                                    <div class="text-xs lg:text-sm font-medium text-gray-900">{{ $product->nombre_producto }}</div>
+                                                    <div class="text-xs text-gray-500 sm:hidden">${{ $product->precio }}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-4 lg:px-6 py-4 whitespace-nowrap hidden sm:table-cell">
+                                            <div class="text-xs lg:text-sm text-gray-900">${{ number_format($product->price, 2) }}</div>
+                                        </td>
+                                        <td class="px-4 lg:px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                                    {{ $product->stock > 10 ? 'bg-green-100 text-green-800' :
+                                      ($product->stock > 0 ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800') }}">
+                                    {{ $product->stock }}
+                                </span>
+                                        </td>
+                                        <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm font-medium">
+                                            <a href="" class="text-blue-600 hover:text-blue-900 mr-2 lg:mr-3">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <form action="" method="POST"
+                                                  onsubmit="return confirm('Are you sure you want to delete this product?');"
+                                                  style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="text-red-600 hover:text-red-900"><i class="fas fa-trash"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="4" class="px-4 lg:px-6 py-4 text-center text-sm text-gray-500">
+                                        No products found. Click "Add Product" to create your first product.
+                                    </td>
+                                </tr>
+                            @endif
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
         </main>
