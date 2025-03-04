@@ -164,7 +164,8 @@
                                         {{ $user->created_at->format('M d, Y') }}
                                     </td>
                                     <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm font-medium">
-                                        <a href="{{ route('users.edit', $user->id) }}" class="text-blue-600 hover:text-blue-900 mr-2 lg:mr-3">
+                                        <a href="{{ route('users.edit', $user->id) }}"
+                                           class="text-blue-600 hover:text-blue-900 mr-2 lg:mr-3">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <form action="{{ route('users.destroy', $user->id) }}" method="POST"
@@ -223,45 +224,46 @@
                                     <tr>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap">
                                             <div class="flex items-center">
-                                                <div class="flex-shrink-0 h-8 w-8 lg:h-10 lg:w-10 bg-gray-100 rounded flex items-center justify-center">
+                                                <div
+                                                    class="flex-shrink-0 h-8 w-8 lg:h-10 lg:w-10 bg-gray-100 rounded flex items-center justify-center">
                                                     <i class="fas fa-box text-gray-500"></i>
                                                 </div>
                                                 <div class="ml-3 lg:ml-4">
-                                                    <div class="text-xs lg:text-sm font-medium text-gray-900">{{ $product->nombre_producto }}</div>
-                                                    <div class="text-xs text-gray-500 sm:hidden">${{ $product->precio }}</div>
+                                                    <div
+                                                        class="text-xs lg:text-sm font-medium text-gray-900">{{ $product->nombre_producto }}</div>
+                                                    <div class="text-xs text-gray-500 sm:hidden">
+                                                        ${{ $product->precio }}</div>
+                                                    <div class="text-xs text-gray-400">
+                                                        Added: {{ $product->created_at->format('M d, Y H:i') }}</div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap hidden sm:table-cell">
-                                            <div class="text-xs lg:text-sm text-gray-900">${{ number_format($product->price, 2) }}</div>
+                                            <div class="text-xs lg:text-sm text-gray-900">
+                                                ${{ number_format($product->precio, 2) }}</div>
                                         </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap">
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
-                                    {{ $product->stock > 10 ? 'bg-green-100 text-green-800' :
-                                      ($product->stock > 0 ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800') }}">
-                                    {{ $product->stock }}
-                                </span>
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                                                {{ $product->stock > 10 ? 'bg-green-100 text-green-800' :
+                                                ($product->stock > 0 ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800') }}">
+                                                {{ $product->stock }}
+                                            </span>
                                         </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm font-medium">
                                             <a href="" class="text-blue-600 hover:text-blue-900 mr-2 lg:mr-3">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <form action="" method="POST"
+                                            <form action="{{ route("products.destroy", $product -> id) }}" method="POST"
                                                   onsubmit="return confirm('Are you sure you want to delete this product?');"
                                                   style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="text-red-600 hover:text-red-900"><i class="fas fa-trash"></i></button>
+                                                <button type="submit" class="text-red-600 hover:text-red-900"><i
+                                                        class="fas fa-trash"></i></button>
                                             </form>
                                         </td>
                                     </tr>
                                 @endforeach
-                            @else
-                                <tr>
-                                    <td colspan="4" class="px-4 lg:px-6 py-4 text-center text-sm text-gray-500">
-                                        No products found. Click "Add Product" to create your first product.
-                                    </td>
-                                </tr>
                             @endif
                             </tbody>
                         </table>
