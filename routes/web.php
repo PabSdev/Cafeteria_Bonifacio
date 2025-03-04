@@ -36,8 +36,6 @@ Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edi
 Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
 Route::get('/products/create', [ProductsController::class, 'create'])->name('products.create');
 Route::post('/products', [ProductsController::class, 'store'])->name('products.store');
-Route::delete('/products/{id}', [ProductsController::class, 'destroy'])->name('products.destroy');
-
 
 
 // Rutas privadas (requieren autenticación)
