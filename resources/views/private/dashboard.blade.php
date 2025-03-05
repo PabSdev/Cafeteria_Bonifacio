@@ -244,10 +244,10 @@
                 </span>
                                         </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm font-medium">
-                                            <a href="" class="text-blue-600 hover:text-blue-900 mr-2 lg:mr-3">
+                                            <a href="{{ route('products.edit', $product->id) }}" class="text-blue-600 hover:text-blue-900 mr-2 lg:mr-3">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <form action="" method="POST"
+                                            <form action="{{ route('products.destroy', $product->id) }}" method="POST"
                                                   onsubmit="return confirm('Are you sure you want to delete this product?');"
                                                   style="display:inline;">
                                                 @csrf

@@ -98,7 +98,7 @@
             </div>
         </div>
         <div class="w-full md:w-1/2 flex justify-center items-center scroll-reveal">
-            <img src="cafe.jpg" class="w-full max-w-md rounded-xl shadow-2xl animate__animated animate__zoomIn"
+            <img src="https://cdn.qwenlm.ai/output/2ff82bd3-0115-40be-8ef8-1685eb13a3af/t2i/13c1d79a-1e8b-470b-bf9c-528dda1b61bb/ec9e7a56-c5e8-4ccf-892f-bb1af81c2c60.png" class="w-full max-w-md rounded-xl shadow-2xl animate__animated animate__zoomIn"
                  alt="Café">
         </div>
     </div>
