@@ -10,65 +10,65 @@
 </head>
 <body class="bg-gray-100">
 <div class="min-h-screen flex flex-col">
-    <!-- Mobile Header -->
+    <!-- Header para movil -->
     <div class="lg:hidden bg-gray-800 text-white p-4 flex justify-between items-center">
-        <h1 class="text-xl font-semibold">Admin Panel</h1>
+        <h1 class="text-xl font-semibold">Panel de Administrador</h1>
         <button id="mobile-menu-button" class="text-white">
             <i class="fas fa-bars text-xl"></i>
         </button>
     </div>
 
     <div class="flex flex-1">
-        <!-- Sidebar - hidden on mobile by default -->
+        <!-- Barra de navegacion -->
         <aside id="sidebar"
                class="w-64 bg-gray-800 text-white fixed h-full z-20 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
             <div class="p-6">
-                <h1 class="text-2xl font-semibold">Admin Panel</h1>
+                <h1 class="text-2xl font-semibold">Panel de Administrador</h1>
             </div>
             <nav class="mt-6">
                 <div class="px-4 py-2 text-gray-300">
-                    <p class="text-xs uppercase font-bold">Management</p>
+                    <p class="text-xs uppercase font-bold">Opciones</p>
                 </div>
                 <a href="{{ route('admin') }}" class="flex items-center px-6 py-3 text-white bg-gray-700">
                     <i class="fas fa-tachometer-alt mr-3"></i>
-                    <span>Dashboard</span>
+                    <span>Panel de Control</span>
                 </a>
                 <a href="#users" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white">
                     <i class="fas fa-users mr-3"></i>
-                    <span>Users</span>
+                    <span>Usuarios</span>
                 </a>
                 <a href="#products"
                    class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white">
                     <i class="fas fa-box mr-3"></i>
-                    <span>Products</span>
+                    <span>Productos</span>
                 </a>
                 <div class="mt-auto px-4 py-2 text-gray-300">
-                    <p class="text-xs uppercase font-bold">Account</p>
+                    <p class="text-xs uppercase font-bold">Cuenta</p>
                 </div>
                 <form action="{{ route('logout') }}" method="POST"
                       class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white">
                     @csrf
                     <i class="fas fa-sign-out-alt mr-3"></i>
-                    <button type="submit">Logout</button>
+                    <button type="submit">Cerrar Sesion</button>
                 </form>
             </nav>
         </aside>
 
-        <!-- Main Content -->
+        <!-- Contenido Principal -->
         <main class="flex-1 w-full lg:ml-64 p-4 lg:p-8">
             <div class="flex justify-between items-center mb-8">
-                <h2 class="text-xl lg:text-3xl font-semibold text-gray-800">Dashboard</h2>
+                <h2 class="text-xl lg:text-3xl font-semibold text-gray-800">Panel de control</h2>
                 <div>
-                    <span class="text-gray-600 text-sm lg:text-base">Welcome, {{ Auth::user()->name }}</span>
+                    <span class="text-gray-600 text-sm lg:text-base">Bienvenido, {{ Auth::user()->name }}</span>
                 </div>
             </div>
 
-            <!-- Stats -->
+            <!-- Estadisticas -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-8">
                 <div class="bg-white rounded-lg shadow p-4 lg:p-6">
                     <div class="flex justify-between items-center">
                         <div>
-                            <p class="text-gray-500 text-xs lg:text-sm">Total Users</p>
+                            <p class="text-gray-500 text-xs lg:text-sm">Usuarios Totales</p>
                             <h3 class="text-xl lg:text-3xl font-bold">{{ User::count() }}</h3>
                         </div>
                         <div class="bg-blue-100 p-2 lg:p-3 rounded-full">
@@ -79,7 +79,7 @@
                 <div class="bg-white rounded-lg shadow p-4 lg:p-6">
                     <div class="flex justify-between items-center">
                         <div>
-                            <p class="text-gray-500 text-xs lg:text-sm">Total Products</p>
+                            <p class="text-gray-500 text-xs lg:text-sm">Prodcutos Totales</p>
                             <h3 class="text-xl lg:text-3xl font-bold">0</h3>
                         </div>
                         <div class="bg-green-100 p-2 lg:p-3 rounded-full">
@@ -90,7 +90,7 @@
                 <div class="bg-white rounded-lg shadow p-4 lg:p-6">
                     <div class="flex justify-between items-center">
                         <div>
-                            <p class="text-gray-500 text-xs lg:text-sm">Admins</p>
+                            <p class="text-gray-500 text-xs lg:text-sm">Administradores</p>
                             <h3 class="text-xl lg:text-3xl font-bold">{{ User::where('rol', 1)->count() }}</h3>
                         </div>
                         <div class="bg-purple-100 p-2 lg:p-3 rounded-full">
@@ -100,13 +100,13 @@
                 </div>
             </div>
 
-            <!-- Users Table -->
+            <!-- Tabla Usuarios -->
             <section id="users" class="mb-12">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-lg lg:text-2xl font-semibold text-gray-800">Users</h3>
+                    <h3 class="text-lg lg:text-2xl font-semibold text-gray-800">Usuarios</h3>
                     <a href="{{ route('users.create') }}"
                        class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 lg:px-4 lg:py-2 rounded text-sm lg:text-base">
-                        <i class="fas fa-plus mr-1 lg:mr-2"></i> Add User
+                        <i class="fas fa-plus mr-1 lg:mr-2"></i> Añadir Usuario
                     </a></div>
                 <div class="bg-white rounded-lg shadow overflow-hidden">
                     <div class="overflow-x-auto">
@@ -115,23 +115,23 @@
                             <tr>
                                 <th scope="col"
                                     class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Name
+                                    Nombre
                                 </th>
                                 <th scope="col"
                                     class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
-                                    Email
+                                    Correo Electrónico
                                 </th>
                                 <th scope="col"
                                     class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Role
+                                    Rol
                                 </th>
                                 <th scope="col"
                                     class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
-                                    Registered
+                                    Dia de Registro
                                 </th>
                                 <th scope="col"
                                     class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Actions
+                                    Opciones
                                 </th>
                             </tr>
                             </thead>
@@ -184,13 +184,13 @@
                 </div>
             </section>
 
-            <!-- Product Information -->
+            <!-- Informacion del producto -->
             <section id="products" class="mb-12">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-lg lg:text-2xl font-semibold text-gray-800">Products</h3>
+                    <h3 class="text-lg lg:text-2xl font-semibold text-gray-800">Productos</h3>
                     <a href="{{ route("products.create") }}"
                        class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 lg:px-4 lg:py-2 rounded text-sm lg:text-base">
-                        <i class="fas fa-plus mr-1 lg:mr-2"></i> Add Product
+                        <i class="fas fa-plus mr-1 lg:mr-2"></i> Añadir Producto
                     </a>
                 </div>
                 <div class="bg-white rounded-lg shadow overflow-hidden">
@@ -200,11 +200,11 @@
                             <tr>
                                 <th scope="col"
                                     class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Product Name
+                                    Nombre del Producto
                                 </th>
                                 <th scope="col"
                                     class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
-                                    Price
+                                    Precio
                                 </th>
                                 <th scope="col"
                                     class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -212,7 +212,7 @@
                                 </th>
                                 <th scope="col"
                                     class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Actions
+                                    Opciones
                                 </th>
                             </tr>
                             </thead>
@@ -228,13 +228,13 @@
                                                 </div>
                                                 <div class="ml-3 lg:ml-4">
                                                     <div class="text-xs lg:text-sm font-medium text-gray-900">{{ $product->nombre_producto }}</div>
-                                                    <div class="text-xs text-gray-500 sm:hidden">${{ $product->precio }}</div>
-                                                    <div class="text-xs text-gray-400">Added: {{ $product->created_at->format('M d, Y H:i') }}</div>
+                                                    <div class="text-xs text-gray-500 sm:hidden">{{ $product->precio }}€</div>
+                                                    <div class="text-xs text-gray-400">Añadido: {{ $product->created_at->format('M d, Y H:i') }}</div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap hidden sm:table-cell">
-                                            <div class="text-xs lg:text-sm text-gray-900">${{ number_format($product->precio, 2) }}</div>
+                                            <div class="text-xs lg:text-sm text-gray-900">{{ number_format($product->precio, 2) }}€</div>
                                         </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap">
                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full

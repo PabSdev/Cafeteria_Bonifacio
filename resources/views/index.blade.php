@@ -93,7 +93,7 @@
                 </button>
                 <button class="px-6 py-3 text-lg font-bold border-2 border-[#f39c12] text-[#f39c12] rounded-lg
                     hover:bg-[#f39c12] hover:text-white hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
-                    <i class="fas fa-book-open mr-2"></i>Ver Menú
+                    <a class="fas fa-book-open mr-2" href="{{ route('menu') }}"></a>Ver Menú
                 </button>
             </div>
         </div>

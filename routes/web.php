@@ -19,6 +19,11 @@ Route::get('/register', function () {
     return view('auth.register');
 })->name('register');
 
+
+Route::get('/menu', function () {
+    return view('menu');
+})->name('menu');
+
 // Rutas de autenticación (usando AuthController)
 Route::post('/custom-login', [AuthController::class, 'login'])->name('custom-login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
