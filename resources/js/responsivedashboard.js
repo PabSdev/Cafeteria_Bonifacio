@@ -11,8 +11,6 @@ document.addEventListener('DOMContentLoaded', function () {
             sidebar.classList.add('-translate-x-full');
         }
     });
-
-    // Close sidebar when clicking on mobile menu items
     const sidebarLinks = sidebar.querySelectorAll('a');
     sidebarLinks.forEach(link => {
         link.addEventListener('click', function () {

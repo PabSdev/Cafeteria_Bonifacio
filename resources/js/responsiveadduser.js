@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Close sidebar when clicking on mobile menu items
     const sidebarLinks = sidebar.querySelectorAll('a');
     sidebarLinks.forEach(link => {
         link.addEventListener('click', function () {
