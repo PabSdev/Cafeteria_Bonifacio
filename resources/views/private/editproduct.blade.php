@@ -59,7 +59,7 @@
         <!-- Contenido Principal -->
         <main class="flex-1 w-full lg:ml-64 p-4 lg:p-8">
             <div class="flex justify-between items-center mb-8">
-                <h2 class="text-xl lg:text-3xl font-semibold text-gray-800">Añadir Nuevo Producto</h2>
+                <h2 class="text-xl lg:text-3xl font-semibold text-gray-800">Editar Producto</h2>
                 <div>
                     <a href="{{ route('admin') }}" class="text-blue-500 hover:text-blue-700">
                         <i class="fas fa-arrow-left mr-2"></i>Volver al Dashboard
@@ -86,43 +86,67 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('products.store') }}" method="POST">
+                    <form action="{{ route('products.update', $product->id) }}" method="POST">
                         @csrf
+                        @method('PUT')
+
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 mb-6">
                             <div>
                                 <label for="nombre_producto"
-                                       class="block text-xs lg:text-sm font-medium text-gray-700 mb-1">Nombre del Producto</label>
+                                       class="block text-xs lg:text-sm font-medium text-gray-700 mb-1">
+                                    Nombre del Producto
+                                </label>
                                 <input type="text" name="nombre_producto" id="nombre_producto" required
                                        class="w-full p-2 border border-gray-300 rounded-md text-sm"
-                                       value="{{ old('nombre_producto', $product -> nombre_producto) }}" maxlength="50">
+                                       value="{{ old('nombre_producto', $product->nombre_producto) }}" maxlength="50">
                                 <p class="text-xs text-gray-500 mt-1">Máximo 50 caracteres</p>
                             </div>
+
                             <div>
-                                <label for="precio"
-                                       class="block text-xs lg:text-sm font-medium text-gray-700 mb-1">Precio</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <span class="text-gray-500 sm:text-sm">€</span>
-                                    </div>
-                                    <input type="number" name="precio" id="precio" required min="0" step="0.01"
-                                           class="w-full p-2 pl-7 border border-gray-300 rounded-md text-sm"
-                                           value="{{ old('precio', $product -> precio) }}">
-                                </div>
+                                <label for="precio" class="block text-xs lg:text-sm font-medium text-gray-700 mb-1">
+                                    Precio
+                                </label>
+                                <input type="number" name="precio" id="precio" step="0.01" required
+                                       class="w-full p-2 border border-gray-300 rounded-md text-sm"
+                                       value="{{ old('precio', $product->precio) }}">
+                                <p class="text-xs text-gray-500 mt-1">En euros (€)</p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 mb-6">
+                            <div>
+                                <label for="stock" class="block text-xs lg:text-sm font-medium text-gray-700 mb-1">
+                                    Stock
+                                </label>
+                                <input type="number" name="stock" id="stock" required
+                                       class="w-full p-2 border border-gray-300 rounded-md text-sm"
+                                       value="{{ old('stock', $product->stock) }}">
+                                <p class="text-xs text-gray-500 mt-1">Cantidad disponible</p>
+                            </div>
+
+                            <div>
+                                <label for="categoria" class="block text-xs lg:text-sm font-medium text-gray-700 mb-1">
+                                    Categoría
+                                </label>
+                                <input type="text" name="categoria" id="categoria" required
+                                       class="w-full p-2 border border-gray-300 rounded-md text-sm"
+                                       value="{{ old('categoria', $product->categoria) }}">
                             </div>
                         </div>
 
                         <div class="mb-6">
-                            <label for="stock"
-                                   class="block text-xs lg:text-sm font-medium text-gray-700 mb-1">Stock</label>
-                            <input type="number" name="stock" id="stock" required min="0"
+                            <label for="imagen" class="block text-xs lg:text-sm font-medium text-gray-700 mb-1">
+                                URL de la Imagen
+                            </label>
+                            <input type="text" name="imagen" id="imagen" required
                                    class="w-full p-2 border border-gray-300 rounded-md text-sm"
-                                   value="{{ old('stock', $product -> stock) }}">
+                                   value="{{ old('imagen', $product->imagen) }}">
+                            <p class="text-xs text-gray-500 mt-1">URL única de la imagen</p>
                         </div>
-
                         <div class="flex items-center justify-between">
                             <button type="submit"
                                     class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm lg:text-base">
-                                <i class="fas fa-plus mr-2"></i> Añadir Producto
+                                <i class="fas fa-save mr-2"></i> Actualizar Producto
                             </button>
                             <a href="{{ route('admin') }}" class="text-gray-500 hover:text-gray-700 text-sm">
                                 Cancelar

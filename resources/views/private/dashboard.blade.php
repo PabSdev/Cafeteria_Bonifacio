@@ -164,7 +164,8 @@
                                         {{ $user->created_at->format('M d, Y') }}
                                     </td>
                                     <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm font-medium">
-                                        <a href="{{ route('users.edit', $user->id) }}" class="text-blue-600 hover:text-blue-900 mr-2 lg:mr-3">
+                                        <a href="{{ route('users.edit', $user->id) }}"
+                                           class="text-blue-600 hover:text-blue-900 mr-2 lg:mr-3">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <form action="{{ route('users.destroy', $user->id) }}" method="POST"
@@ -211,6 +212,14 @@
                                     Stock
                                 </th>
                                 <th scope="col"
+                                    class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
+                                    Categoría
+                                </th>
+                                <th scope="col"
+                                    class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
+                                    Imagen
+                                </th>
+                                <th scope="col"
                                     class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Opciones
                                 </th>
@@ -223,18 +232,26 @@
                                     <tr>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap">
                                             <div class="flex items-center">
-                                                <div class="flex-shrink-0 h-8 w-8 lg:h-10 lg:w-10 bg-gray-100 rounded flex items-center justify-center">
+                                                <div
+                                                    class="flex-shrink-0 h-8 w-8 lg:h-10 lg:w-10 bg-gray-100 rounded flex items-center justify-center">
                                                     <i class="fas fa-box text-gray-500"></i>
                                                 </div>
                                                 <div class="ml-3 lg:ml-4">
-                                                    <div class="text-xs lg:text-sm font-medium text-gray-900">{{ $product->nombre_producto }}</div>
-                                                    <div class="text-xs text-gray-500 sm:hidden">{{ $product->precio }}€</div>
-                                                    <div class="text-xs text-gray-400">Añadido: {{ $product->created_at->format('M d, Y H:i') }}</div>
+                                                    <div
+                                                        class="text-xs lg:text-sm font-medium text-gray-900">{{ $product->nombre_producto }}</div>
+                                                    <div class="text-xs text-gray-500 sm:hidden">{{ $product->precio }}
+                                                        €
+                                                    </div>
+                                                    <div class="text-xs text-gray-400">
+                                                        Añadido: {{ $product->created_at->format('M d, Y H:i') }}</div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap hidden sm:table-cell">
-                                            <div class="text-xs lg:text-sm text-gray-900">{{ number_format($product->precio, 2) }}€</div>
+                                            <div
+                                                class="text-xs lg:text-sm text-gray-900">{{ number_format($product->precio, 2) }}
+                                                €
+                                            </div>
                                         </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap">
                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
@@ -243,8 +260,16 @@
                     {{ $product->stock }}
                 </span>
                                         </td>
+                                        <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm text-gray-900 hidden md:table-cell">
+                                            {{ $product->categoria }}
+                                        </td>
+                                        <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm text-gray-900 hidden md:table-cell">
+                                            <img src="{{ $product->imagen }}" alt="{{ $product->nombre_producto }}"
+                                                 class="h-10 w-10 object-cover rounded">
+                                        </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm font-medium">
-                                            <a href="{{ route('products.edit', $product->id) }}" class="text-blue-600 hover:text-blue-900 mr-2 lg:mr-3">
+                                            <a href="{{ route('products.edit', $product->id) }}"
+                                               class="text-blue-600 hover:text-blue-900 mr-2 lg:mr-3">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <form action="{{ route('products.destroy', $product->id) }}" method="POST"
@@ -252,7 +277,8 @@
                                                   style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="text-red-600 hover:text-red-900"><i class="fas fa-trash"></i></button>
+                                                <button type="submit" class="text-red-600 hover:text-red-900"><i
+                                                        class="fas fa-trash"></i></button>
                                             </form>
                                         </td>
                                     </tr>

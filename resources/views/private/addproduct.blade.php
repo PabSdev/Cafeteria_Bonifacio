@@ -111,6 +111,24 @@
                             </div>
                         </div>
 
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 mb-6">
+                            <div>
+                                <label for="categoria"
+                                       class="block text-xs lg:text-sm font-medium text-gray-700 mb-1">Categoría</label>
+                                <input type="text" name="categoria" id="categoria" required
+                                       class="w-full p-2 border border-gray-300 rounded-md text-sm"
+                                       value="{{ old('categoria') }}">
+                            </div>
+                            <div>
+                                <label for="imagen"
+                                       class="block text-xs lg:text-sm font-medium text-gray-700 mb-1">URL de la imagen</label>
+                                <input type="text" name="imagen" id="imagen" required
+                                       class="w-full p-2 border border-gray-300 rounded-md text-sm"
+                                       value="{{ old('imagen') }}">
+                                <p class="text-xs text-gray-500 mt-1">Debe ser una URL única</p>
+                            </div>
+                        </div>
+
                         <div class="mb-6">
                             <label for="stock"
                                    class="block text-xs lg:text-sm font-medium text-gray-700 mb-1">Stock</label>

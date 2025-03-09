@@ -72,7 +72,7 @@
     <div class="flex justify-center items-center max-w-7xl w-full flex-col-reverse md:flex-row gap-12">
         <div class="w-full md:w-1/2 text-center md:text-left mb-5 md:mb-0 scroll-reveal">
             <span
-                    class="inline-block px-4 py-1 bg-[#f39c12]/20 text-[#f39c12] rounded-full text-sm font-medium mb-4 animate-pulse">
+                class="inline-block px-4 py-1 bg-[#f39c12]/20 text-[#f39c12] rounded-full text-sm font-medium mb-4 animate-pulse">
                 Desde 1995
             </span>
             <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-5 text-[#f39c12] animate__animated animate__fadeInUp">
@@ -86,20 +86,22 @@
                 Cada taza cuenta una historia de tradición, calidad y sabor inigualable.
             </p>
             <div
-                    class="flex flex-wrap gap-4 justify-center md:justify-start animate__animated animate__fadeInUp animate__delay-3s">
+                class="flex flex-wrap gap-4 justify-center md:justify-start animate__animated animate__fadeInUp animate__delay-3s">
                 <button class="px-6 py-3 text-lg font-bold bg-[#f39c12] text-white rounded-lg hover:bg-[#e67e22]
                     hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
                     <i class="fas fa-coffee mr-2"></i>Pedir Ahora
                 </button>
-                <button class="px-6 py-3 text-lg font-bold border-2 border-[#f39c12] text-[#f39c12] rounded-lg
-                    hover:bg-[#f39c12] hover:text-white hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
-                    <a class="fas fa-book-open mr-2" href="{{ route('menu') }}"></a>Ver Menú
-                </button>
+                <a href="/menu" class="px-6 py-3 text-lg font-bold border-2 border-[#f39c12] text-[#f39c12] rounded-lg
+                hover:bg-[#f39c12] hover:text-white hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
+                    <i class="fas fa-book-open mr-2"></i>Ver Menú
+                </a>
             </div>
         </div>
         <div class="w-full md:w-1/2 flex justify-center items-center scroll-reveal">
-            <img src="https://cdn.qwenlm.ai/output/2ff82bd3-0115-40be-8ef8-1685eb13a3af/t2i/13c1d79a-1e8b-470b-bf9c-528dda1b61bb/ec9e7a56-c5e8-4ccf-892f-bb1af81c2c60.png" class="w-full max-w-md rounded-xl shadow-2xl animate__animated animate__zoomIn"
-                 alt="Café">
+            <img
+                src="https://cdn.qwenlm.ai/output/2ff82bd3-0115-40be-8ef8-1685eb13a3af/t2i/13c1d79a-1e8b-470b-bf9c-528dda1b61bb/ec9e7a56-c5e8-4ccf-892f-bb1af81c2c60.png"
+                class="w-full max-w-md rounded-xl shadow-2xl animate__animated animate__zoomIn"
+                alt="Café">
         </div>
     </div>
 </section>
@@ -136,7 +138,7 @@
                         Nuestro café de especialidad, seleccionado entre los mejores granos del mundo.
                     </p>
                     <button
-                            class="w-full py-2 bg-[#f39c12] text-white rounded hover:bg-[#e67e22] transition-colors duration-300">
+                        class="w-full py-2 bg-[#f39c12] text-white rounded hover:bg-[#e67e22] transition-colors duration-300">
                         Añadir
                     </button>
                 </div>
@@ -159,7 +161,7 @@
                         Deliciosos pasteles elaborados cada día en nuestra cocina con ingredientes naturales.
                     </p>
                     <button
-                            class="w-full py-2 bg-[#f39c12] text-white rounded hover:bg-[#e67e22] transition-colors duration-300">
+                        class="w-full py-2 bg-[#f39c12] text-white rounded hover:bg-[#e67e22] transition-colors duration-300">
                         Añadir
                     </button>
                 </div>
@@ -182,7 +184,7 @@
                         Refrescantes bebidas de frutas naturales, perfectas para cualquier momento del día.
                     </p>
                     <button
-                            class="w-full py-2 bg-[#f39c12] text-white rounded hover:bg-[#e67e22] transition-colors duration-300">
+                        class="w-full py-2 bg-[#f39c12] text-white rounded hover:bg-[#e67e22] transition-colors duration-300">
                         Añadir
                     </button>
                 </div>
