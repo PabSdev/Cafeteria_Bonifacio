@@ -80,7 +80,7 @@
                     <div class="flex justify-between items-center">
                         <div>
                             <p class="text-gray-500 text-xs lg:text-sm">Prodcutos Totales</p>
-                            <h3 class="text-xl lg:text-3xl font-bold">0</h3>
+                            <h3 class="text-xl lg:text-3xl font-bold">{{ Productos::count() }}</h3>
                         </div>
                         <div class="bg-green-100 p-2 lg:p-3 rounded-full">
                             <i class="fas fa-box text-green-500"></i>
@@ -293,6 +293,5 @@
     </div>
 </div>
 
-@vite("resources/js/responsivedashboard.js")
 </body>
 </html>

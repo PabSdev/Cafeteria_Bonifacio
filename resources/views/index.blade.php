@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     @vite('resources/css/app.css')
-    @vite('resources/css/animation.css')
     <title>Cafeteria Bonifacio</title>
 </head>
 
@@ -192,10 +191,12 @@
         </div>
 
         <div class="text-center mt-12">
-            <button class="px-8 py-3 text-lg font-bold bg-[#f39c12] text-white rounded-lg hover:bg-[#e67e22]
+            <a href="/menu">
+                <button class="px-8 py-3 text-lg font-bold bg-[#f39c12] text-white rounded-lg hover:bg-[#e67e22]
                 hover:shadow-lg transition-all duration-300">
-                Ver menú completo
-            </button>
+                    Ver menú completo
+                </button>
+            </a>
         </div>
     </div>
 </section>
@@ -413,7 +414,7 @@
                 <ul class="space-y-2">
                     <li><a href="#Inicio" class="text-[#bdc3c7] hover:text-[#f39c12] transition-colors duration-300">Inicio</a>
                     </li>
-                    <li><a href="#Menu"
+                    <li><a href="/menu"
                            class="text-[#bdc3c7] hover:text-[#f39c12] transition-colors duration-300">Menú</a></li>
                     <li><a href="#SobreNosotros"
                            class="text-[#bdc3c7] hover:text-[#f39c12] transition-colors duration-300">Sobre Nosotros</a>

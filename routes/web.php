@@ -20,9 +20,6 @@ Route::get('/register', function () {
 })->name('register');
 
 
-Route::get('/menu', function () {
-    return view('menu');
-})->name('menu');
 
 // Rutas de autenticación (usando AuthController)
 Route::post('/custom-login', [AuthController::class, 'login'])->name('custom-login');
@@ -44,6 +41,8 @@ Route::post('/products', [ProductsController::class, 'store'])->name('products.s
 Route::delete('/products/{id}', [ProductsController::class, 'destroy'])->name('products.destroy');
 Route::get('/products/{id}/edit', [ProductsController::class, 'edit'])->name('products.edit');
 Route::put('/products/{id}', [ProductsController::class, 'update'])->name('products.update');
+
+Route::get('/menu', [App\Http\Controllers\ProductsController::class, 'showMenu'])->name('menu');
 
 // Rutas privadas (requieren autenticación)
 Route::middleware(['auth'])->group(function () {

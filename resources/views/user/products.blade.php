@@ -17,6 +17,7 @@
         categories: ['all', {{ implode(',', $products->pluck('categoria')->unique()->map(fn($cat) => "'$cat'")->toArray()) }}]
     }"
      class="container mx-auto px-4 py-12">
+
     <!-- Header remains the same -->
     <div class="text-center mb-12 fade-in">
         <h1 class="menu-heading text-4xl md:text-6xl font-bold mb-2">Nuestro Menú</h1>
