@@ -151,7 +151,7 @@
     </div>
 </div>
 
-@vite("resources/js/responsiveadduser.js")
-@vite("resources/js/responsivedashboard.js")
+@vite('resources/js/responsiveadduser.js')
+@vite('resources/js/responsivedashboard.js')
 </body>
 </html>

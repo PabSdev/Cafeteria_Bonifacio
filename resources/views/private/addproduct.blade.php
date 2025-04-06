@@ -98,16 +98,13 @@
                                 <p class="text-xs text-gray-500 mt-1">Máximo 50 caracteres</p>
                             </div>
                             <div>
-                                <label for="precio"
-                                       class="block text-xs lg:text-sm font-medium text-gray-700 mb-1">Precio</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <span class="text-gray-500 sm:text-sm">€</span>
-                                    </div>
-                                    <input type="number" name="precio" id="precio" required min="0" step="0.01"
-                                           class="w-full p-2 pl-7 border border-gray-300 rounded-md text-sm"
-                                           value="{{ old('precio') }}">
-                                </div>
+                                <label for="precio" class="block text-xs lg:text-sm font-medium text-gray-700 mb-1">
+                                    Precio
+                                </label>
+                                <input type="number" name="precio" id="precio" step="0.01" required
+                                       class="w-full p-2 border border-gray-300 rounded-md text-sm"
+                                       value="{{ old('precio') }}">
+                                <p class="text-xs text-gray-500 mt-1">En euros (€)</p>
                             </div>
                         </div>
 
