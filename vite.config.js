@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite';
-import laravel from 'laravel-vite-plugin';
-import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from 'vite'
+import laravel from 'laravel-vite-plugin'
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
     plugins: [
@@ -15,9 +15,10 @@ export default defineConfig({
                 'resources/js/responsiveaddproduct.js',
                 'resources/css/menu.css',
                 'resources/js/menu.js',
+                'resources/css/shopping.css',
             ],
             refresh: true,
         }),
         tailwindcss(),
     ],
-});
+})

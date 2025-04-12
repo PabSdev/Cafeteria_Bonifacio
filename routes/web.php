@@ -19,6 +19,7 @@ Route::get('/register', function () {
     return view('auth.register');
 })->name('register');
 
+Route::get('/shopping', [App\Http\Controllers\ProductsController::class, 'shopping'])->name('shopping');
 
 
 // Rutas de autenticación (usando AuthController)
@@ -43,6 +44,9 @@ Route::get('/products/{id}/edit', [ProductsController::class, 'edit'])->name('pr
 Route::put('/products/{id}', [ProductsController::class, 'update'])->name('products.update');
 
 Route::get('/menu', [App\Http\Controllers\ProductsController::class, 'showMenu'])->name('menu');
+
+// Rutas para usuario
+
 
 // Rutas privadas (requieren autenticación)
 Route::middleware(['auth'])->group(function () {
