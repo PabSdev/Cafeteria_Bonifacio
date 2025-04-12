@@ -16,6 +16,7 @@ export default defineConfig({
                 'resources/css/menu.css',
                 'resources/js/menu.js',
                 'resources/css/shopping.css',
+                'resources/js/shopping.js',
             ],
             refresh: true,
         }),

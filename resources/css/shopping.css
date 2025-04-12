@@ -69,7 +69,6 @@ body {
     opacity: 1;
     pointer-events: auto;
 }
-/* Para ocultar la barra de desplazamiento pero permitir scroll */
 .no-scrollbar::-webkit-scrollbar {
     display: none;
 }
