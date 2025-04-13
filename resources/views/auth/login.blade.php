@@ -111,7 +111,7 @@
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
-                        <a href="#"
+                        <a href="{{ url('/auth/google') }}"
                            class="py-2 px-4 border border-gray-300 rounded-md flex items-center justify-center text-[#2c3e50] hover:bg-gray-50 transition-all duration-300">
                             <i class="fab fa-google text-red-500 mr-2"></i>
                             Google

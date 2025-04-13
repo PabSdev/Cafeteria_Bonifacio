@@ -15,8 +15,8 @@ export default defineConfig({
                 'resources/js/responsiveaddproduct.js',
                 'resources/css/menu.css',
                 'resources/js/menu.js',
-                'resources/css/shopping.css',
-                'resources/js/shopping.js',
+                "resources/js/shopping.js",
+                'resources/css/shopping.css'
             ],
             refresh: true,
         }),
