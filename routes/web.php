@@ -75,6 +75,8 @@ Route::put('/products/{id}', [ProductsController::class, 'update'])->name('produ
 
 Route::get('/menu', [ProductsController::class, 'showMenu'])->name('menu');
 
+Route::post('/create-payment-intent', [StripeController::class, 'createPaymentIntent']);
+
 // Rutas privadas (requieren autenticación)
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin');

@@ -49,22 +49,23 @@
     <!-- Contenedor principal con padding inferior para el botón flotante -->
     <div class="container mx-auto px-4 pb-20">
         <!-- Categorías scrollables horizontalmente -->
-        <div class="mb-6 -mx-4 px-4 overflow-x-auto no-scrollbar">
-            <div class="flex space-x-3 py-2">
-                <button
-                    class="category-button bg-gray-100 hover:bg-gray-200 active"
-                    data-category="all">
-                    Todos
-                </button>
-                @foreach($products->pluck('categoria')->unique() as $categoria)
-                    <button
-                        class="category-button bg-gray-100 hover:bg-gray-200"
-                        data-category="{{ $categoria }}">
-                        {{ $categoria }}
-                    </button>
-                @endforeach
-            </div>
-        </div>
+        <!-- Categorías scrollables horizontalmente -->
+<div class="mb-6 -mx-4 px-4 overflow-x-auto no-scrollbar">
+    <div class="flex space-x-3 py-2">
+        <button
+            class="category-button bg-gray-100 hover:bg-gray-200 active"
+            data-category="all">
+            Todos
+        </button>
+        @foreach($products->pluck('categoria')->unique() as $categoria)
+            <button
+                class="category-button bg-gray-100 hover:bg-gray-200"
+                data-category="{{ $categoria }}">
+                {{ $categoria }}
+            </button>
+        @endforeach
+    </div>
+</div>
 
         <!-- Lista de Productos -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -105,57 +106,62 @@
     </div>
 
     <!-- Botón flotante de carrito (visible SOLO en móvil) -->
-    <button
-        class="toggle-cart cart-button md:hidden"
-        style="display: none;">
-        <i class="fas fa-shopping-cart text-xl"></i>
-        <span class="cart-count absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-            0
-        </span>
-    </button>
+    <!-- Botón flotante de carrito (visible SOLO en móvil) -->
+<button
+class="toggle-cart cart-button md:hidden"
+style="display: none;">
+<i class="fas fa-shopping-cart text-xl"></i>
+<span class="cart-count absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+    0
+</span>
+</button>
 
-    <!-- Fondo semi-transparente -->
-    <div class="backdrop toggle-cart"></div>
+<!-- Fondo semi-transparente -->
+<div class="backdrop toggle-cart"></div>
 
-    <!-- Drawer del carrito (desliza desde la derecha) -->
-    <div class="cart-drawer">
-        <div class="h-full flex flex-col">
-            <!-- Cabecera del carrito -->
-            <div class="p-4 border-b flex justify-between items-center">
-                <h2 class="text-lg font-bold">Tu Carrito</h2>
-                <button class="toggle-cart text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-
-            <!-- Lista de productos en el carrito -->
-            <div class="flex-1 overflow-y-auto p-4">
-                <!-- Mensaje de carrito vacío -->
-                <div class="empty-cart-message flex flex-col items-center justify-center h-full text-center">
-                    <i class="fas fa-shopping-cart text-gray-300 text-5xl mb-4"></i>
-                    <p class="text-gray-500">Tu carrito está vacío</p>
-                    <button
-                        class="toggle-cart mt-4 px-4 py-2 bg-gray-200 text-gray-800 rounded-lg">
-                        Explorar productos
-                    </button>
-                </div>
-
-                <!-- Contenedor dinámico de items del carrito -->
-                <div class="cart-items-container"></div>
-            </div>
-
-            <!-- Pie del carrito con total y botón de pago -->
-            <div class="cart-footer p-4 border-t bg-gray-50" style="display: none;">
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-gray-600">Total:</span>
-                    <span class="cart-total font-bold text-xl">0.00€</span>
-                </div>
-                <div class="pay-button"></div>
-            </div>
-        </div>
+<!-- Drawer del carrito (desliza desde la derecha) -->
+<div class="cart-drawer">
+<div class="h-full flex flex-col">
+    <!-- Cabecera del carrito -->
+    <div class="p-4 border-b flex justify-between items-center">
+        <h2 class="text-lg font-bold">Tu Carrito</h2>
+        <button class="toggle-cart text-gray-500 hover:text-gray-700">
+            <i class="fas fa-times"></i>
+        </button>
     </div>
+    <!-- Lista de productos en el carrito -->
+    <div class="flex-1 overflow-y-auto p-4">
+        <!-- Mensaje de carrito vacío -->
+        <div class="empty-cart-message flex flex-col items-center justify-center h-full text-center">
+            <i class="fas fa-shopping-cart text-gray-300 text-5xl mb-4"></i>
+            <p class="text-gray-500">Tu carrito está vacío</p>
+            <button
+                class="toggle-cart mt-4 px-4 py-2 bg-gray-200 text-gray-800 rounded-lg">
+                Explorar productos
+            </button>
+        </div>
+        <!-- Contenedor dinámico de items del carrito -->
+        <div class="cart-items-container"></div>
+    </div>
+    <!-- Pie del carrito con total y botón de pago -->
+    <div class="cart-footer p-4 border-t bg-gray-50" style="display: none;">
+        <div class="flex justify-between items-center mb-4">
+            <span class="text-gray-600">Total:</span>
+            <span class="cart-total font-bold text-xl">0.00€</span>
+        </div>
+        <button
+            id="checkout-button"
+            class="w-full py-3 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition-colors">
+            Pagar con Stripe
+        </button>
+    </div>
+</div>
+</div>
 
+<script src="https://js.stripe.com/basil/stripe.js"></script>
     <!-- Script para la lógica del carrito -->
-    @vite('resources/js/shopping.js')
+    @vite('resources/js/shopping/stripe.js')
+    @vite('resources/js/shopping/cart.js')
+    @vite('resources/js/shopping/filter.js')
 </body>
 </html>

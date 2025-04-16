@@ -83,6 +83,6 @@
     </div>
 </div>
 
-@vite('resources/js/menu.js')
+@vite('resources/js/menu/menu.js')
 </body>
 </html>

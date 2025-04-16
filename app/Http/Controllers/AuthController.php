@@ -16,11 +16,9 @@ class AuthController extends Controller
     {
         // Comprobamos si el usuario ya está logado
         if (Auth::check()) {
-
             // Si está logado le mostramos la vista de logados
             return view('logados');
         }
-
         // Si no está logado le mostramos la vista con el formulario de login
         return view('auth.login');
     }
