@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
     cartDrawer: document.querySelector('.cart-drawer'), // Drawer del carrito
     backdrop: document.querySelector('.backdrop'), // Fondo semi-transparente
     toggleCartButtons: document.querySelectorAll('.toggle-cart'), // Botones para abrir/cerrar el carrito
+    payButton: document.querySelector('#checkout-button'),
+    clearCartButton: document.querySelector('#clear-cart-button'),
   };
 
   // Métodos para manipular el carrito
@@ -32,11 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
           quantity: 1,
         });
       }
-
-      // Guardar en localStorage
       localStorage.setItem('cart', JSON.stringify(state.cart));
-
-      // Actualizar la UI
       updateCartUI();
     },
 
@@ -48,13 +46,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     updateQuantity: function (index, change) {
       state.cart[index].quantity += change;
-
       if (state.cart[index].quantity <= 0) {
         cartMethods.removeItem(index);
       } else {
         localStorage.setItem('cart', JSON.stringify(state.cart));
         updateCartUI();
       }
+    },
+
+    // Vaciar carrito
+    clearCart: function () {
+      state.cart = [];
+      localStorage.setItem('cart', JSON.stringify(state.cart));
+      updateCartUI();
     },
 
     cartTotal: function () {
@@ -69,12 +73,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     toggleCart: function () {
       state.showCart = !state.showCart;
-
-      // Mostrar/ocultar el drawer del carrito
       elements.cartDrawer.classList.toggle('open', state.showCart);
       elements.backdrop.classList.toggle('open', state.showCart);
-
-      // Bloquear/desbloquear el scroll del cuerpo
       document.body.style.overflow = state.showCart ? 'hidden' : '';
     },
   };
@@ -88,59 +88,56 @@ document.addEventListener('DOMContentLoaded', function () {
       element.style.display = count > 0 ? 'flex' : 'none';
     });
 
-    // Actualizar mensaje de carrito vacío
+    // Mensaje de carrito vacío
     if (elements.emptyCartMessage) {
       elements.emptyCartMessage.style.display =
         state.cart.length === 0 ? 'flex' : 'none';
     }
 
-    // Actualizar items del carrito
+    // Lista de ITEMS del carrito
     if (elements.cartItemsContainer) {
       elements.cartItemsContainer.innerHTML = '';
-
       state.cart.forEach((item, index) => {
         const itemElement = document.createElement('div');
         itemElement.className =
           'flex items-center py-3 border-b last:border-b-0';
         itemElement.innerHTML = `
-                <div class="w-16 h-16 bg-gray-100 rounded overflow-hidden mr-3">
-                    <img src="${item.image}" alt="${
+          <div class="w-16 h-16 bg-gray-100 rounded overflow-hidden mr-3">
+              <img src="${item.image}" alt="${
           item.name
         }" class="w-full h-full object-cover">
-                </div>
-                <div class="flex-1">
-                    <h3 class="font-medium text-sm">${item.name}</h3>
-                    <div class="flex justify-between items-center mt-2">
-                        <div class="flex items-center bg-gray-100 rounded-lg">
-                            <button 
-                                class="quantity-decrease w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700"
-                                data-index="${index}">
-                                <i class="fas fa-minus text-xs"></i>
-                            </button>
-                            <span class="w-8 text-center">${
-                              item.quantity
-                            }</span>
-                            <button 
-                                class="quantity-increase w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700"
-                                data-index="${index}">
-                                <i class="fas fa-plus text-xs"></i>
-                            </button>
-                        </div>
-                        <span class="font-medium">${(
-                          item.price * item.quantity
-                        ).toFixed(2)}€</span>
-                    </div>
-                </div>
-                <button 
-                    class="remove-item ml-2 text-gray-400 hover:text-red-500 p-2"
-                    data-index="${index}">
-                    <i class="fas fa-trash-alt"></i>
-                </button>
-            `;
+          </div>
+          <div class="flex-1">
+              <h3 class="font-medium text-sm">${item.name}</h3>
+              <div class="flex justify-between items-center mt-2">
+                  <div class="flex items-center bg-gray-100 rounded-lg">
+                      <button 
+                          class="quantity-decrease w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700"
+                          data-index="${index}">
+                          <i class="fas fa-minus text-xs"></i>
+                      </button>
+                      <span class="w-8 text-center">${item.quantity}</span>
+                      <button 
+                          class="quantity-increase w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700"
+                          data-index="${index}">
+                          <i class="fas fa-plus text-xs"></i>
+                      </button>
+                  </div>
+                  <span class="font-medium">${(
+                    item.price * item.quantity
+                  ).toFixed(2)}€</span>
+              </div>
+          </div>
+          <button 
+              class="remove-item ml-2 text-gray-400 hover:text-red-500 p-2"
+              data-index="${index}">
+              <i class="fas fa-trash-alt"></i>
+          </button>
+        `;
 
         elements.cartItemsContainer.appendChild(itemElement);
 
-        // Agregar event listeners para los botones
+        // Event listeners
         const decreaseBtn = itemElement.querySelector('.quantity-decrease');
         const increaseBtn = itemElement.querySelector('.quantity-increase');
         const removeBtn = itemElement.querySelector('.remove-item');
@@ -163,10 +160,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Habilitar/deshabilitar el botón de Stripe
-    const payButton = document.querySelector('#checkout-button');
-    if (payButton) {
-      payButton.disabled = state.cart.length === 0;
-      payButton.classList.toggle('opacity-50', state.cart.length === 0);
+    if (elements.payButton) {
+      elements.payButton.disabled = state.cart.length === 0;
+      elements.payButton.classList.toggle(
+        'opacity-50',
+        state.cart.length === 0
+      );
     }
   }
 
@@ -178,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function () {
       state.cart = JSON.parse(savedCart);
     }
 
-    // Botones para abrir/cerrar el carrito
+    // Botones para abrir/cerrar carrito
     elements.toggleCartButtons.forEach((button) => {
       button.addEventListener('click', cartMethods.toggleCart);
     });
@@ -190,6 +189,11 @@ document.addEventListener('DOMContentLoaded', function () {
         cartMethods.addToCart(productData);
       });
     });
+
+    // Botón para vaciar el carrito
+    if (elements.clearCartButton) {
+      elements.clearCartButton.addEventListener('click', cartMethods.clearCart);
+    }
 
     // Actualizar la interfaz
     updateCartUI();

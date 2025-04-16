@@ -145,19 +145,26 @@ style="display: none;">
     </div>
 
     <!-- Pie del carrito con total y botón de pago -->
-<div class="cart-footer p-4 border-t bg-gray-50">
-    <div class="flex justify-between items-center mb-4">
-        <span class="text-gray-600">Total:</span>
-        <span class="cart-total font-bold text-xl">0.00€</span>
+    <div class="cart-footer p-4 border-t bg-gray-50">
+        <div class="flex justify-between items-center mb-4">
+            <span class="text-gray-600">Total:</span>
+            <span class="cart-total font-bold text-xl">0.00€</span>
+        </div>
+        <!-- Contenedor para el elemento de tarjeta -->
+        <div id="card-element" class="p-4 border rounded"></div>
+        <button
+            id="checkout-button"
+            class="w-full py-3 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition-colors">
+            Pagar con Stripe
+        </button>
+    
+        <!-- Botón para vaciar el carrito -->
+        <button
+            id="clear-cart-button"
+            class="w-full py-3 bg-red-500 text-white rounded-lg font-medium hover:bg-red-600 transition-colors mt-2">
+            Vaciar Carrito
+        </button>
     </div>
-    <!-- Contenedor para el elemento de tarjeta -->
-    <div id="card-element" class="p-4 border rounded"></div>
-    <button
-        id="checkout-button"
-        class="w-full py-3 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition-colors">
-        Pagar con Stripe
-    </button>
-</div>
 </div>
 </div>
 <script src="https://js.stripe.com/v3/"></script>
