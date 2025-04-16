@@ -4,14 +4,21 @@ document.addEventListener('DOMContentLoaded', function () {
     'pk_test_51REPUHFzQ3LnatYualxstg868hE42rQHYhbZ9VuJ5vvYXrwogUWvs1ZfmnGdtFXTf9ZoUfF8J7aZK1nEH3FSmd3x00LpwzkraU'
   ); // Reemplaza con tu clave pública
   const elementsStripe = stripe.elements();
-  const cardElement = elementsStripe.create('card');
-  cardElement.mount('#card-element');
+
+  // Verifica si el contenedor #card-element existe
+  const cardElementContainer = document.querySelector('#card-element');
+  if (cardElementContainer) {
+    const cardElement = elementsStripe.create('card');
+    cardElement.mount('#card-element');
+  } else {
+    console.error('El contenedor #card-element no existe en el DOM.');
+  }
 
   // Función para procesar el pago con Stripe
   async function processStripePayment(amount) {
     try {
       // Crear un PaymentIntent desde el servidor
-      const response = await fetch('/create-payment-intent', {
+      const response = await fetch('/api/create-payment-intent', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
