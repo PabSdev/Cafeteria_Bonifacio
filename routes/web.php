@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\StripeController;
+use App\Http\Controllers\OrderController;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Log;
 
@@ -77,6 +79,10 @@ Route::get('/menu', [ProductsController::class, 'showMenu'])->name('menu');
 
 Route::post('/api/create-payment-intent', [StripeController::class, 'createPaymentIntent']);
 
+Route::get('/kitchen/orders', [OrderController::class, 'kitchen'])->name('kitchen.orders');
+Route::get('/order/confirmation/{id}', [OrderController::class, 'confirmation'])->name('user.confirmation');
+Route::put('/order/update/{id}', [OrderController::class, 'update'])->name('order.update');
+Route::post('/order/create', [OrderController::class, 'create'])->name('order.create');
 // Rutas privadas (requieren autenticación)
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin');
