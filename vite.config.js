@@ -19,7 +19,7 @@ export default defineConfig({
                 'resources/css/shopping.css',
                 'resources/js/shopping/filter.js',
                 'resources/js/orders.js',
-                'resources/responsiveeditproduct.js',
+                'resources/js/responsiveeditproduct.js',
             ],
             refresh: true,
         }),
