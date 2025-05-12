@@ -7,8 +7,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\OrderController;
-use Laravel\Socialite\Facades\Socialite;
-use Illuminate\Support\Facades\Log;
 
 // Rutas públicas (sin autenticación)
 Route::get('/', function () {
@@ -22,34 +20,6 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('auth.register');
 })->name('register');
-
-Route::get('/auth/google', function () {
-    return Socialite::driver('google')->redirect();
-})->name('auth.google');
-
-Route::get('/auth/google/callback', function () {
-    try {
-        $googleUser = Socialite::driver('google')->user();
-        $user = \App\Models\User::where('email', $googleUser->getEmail())->first();
-        if ($user) {
-            // Si el usuario ya existe, inicie sesión
-            \Illuminate\Support\Facades\Auth::login($user);
-        } else {
-            // Si el usuario no existe, regístrelo
-            $user = \App\Models\User::create([
-                'name' => $googleUser->getName(),
-                'email' => $googleUser->getEmail(),
-                'password' => bcrypt(\Illuminate\Support\Str::random(16)), // Genera una contraseña aleatoria
-            ]);
-            \Illuminate\Support\Facades\Auth::login($user);
-        }
-        return redirect()->route('logados'); // Redirigir a la ruta 'logados'
-    } catch (\Exception $e) {
-        // Manejar la excepción y redirigir al usuario a una página de error
-        Log::error('Google authentication error: ' . $e->getMessage());
-        return redirect()->route('login')->with('error', 'Error al autenticar con Google.');
-    }
-});
 
 // Rutas de compras
 Route::get('/shopping', [ProductsController::class, 'shopping'])->name('shopping');
