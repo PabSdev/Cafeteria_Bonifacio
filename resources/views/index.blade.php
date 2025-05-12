@@ -389,7 +389,7 @@
             <div>
                 <div class="flex items-center gap-2 mb-4">
                     <i class="fas fa-coffee text-2xl text-[#f39c12]"></i>
-                    <h3 class="text-xl font-bold text-[#f39c12]">Cafeteria Loli</h3>
+                    <h3 class="text-xl font-bold text-[#f39c12]">Cafeteria Bonifacio</h3>
                 </div>
                 <p class="text-[#bdc3c7] mb-6">Tu lugar favorito para disfrutar del mejor café en un ambiente acogedor y
                     familiar.</p>

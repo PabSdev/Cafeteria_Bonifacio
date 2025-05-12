@@ -19,7 +19,6 @@ export default defineConfig({
                 'resources/js/shopping/cart.js',
                 'resources/css/shopping.css',
                 'resources/js/shopping/filter.js',
-                // 'resources/js/echo.js', // Eliminado
                 'resources/js/orders.js',
             ],
             refresh: true,
