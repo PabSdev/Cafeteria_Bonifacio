@@ -86,7 +86,7 @@
             </p>
             <div
                 class="flex flex-wrap gap-4 justify-center md:justify-start animate__animated animate__fadeInUp animate__delay-3s">
-                <button class="px-6 py-3 text-lg font-bold bg-[#f39c12] text-white rounded-lg hover:bg-[#e67e22]
+                <a href="/shopping" class="px-6 py-3 text-lg font-bold bg-[#f39c12] text-white rounded-lg hover:bg-[#e67e22]
                     hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
                     <i class="fas fa-coffee mr-2"></i>Pedir Ahora
                 </button>
