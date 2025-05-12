@@ -159,6 +159,6 @@
     </div>
 </div>
 
-@vite("resources/js/responsiveaddproduct.js")
+@vite("resources/js/porduct/responsiveaddproduct.js")
 </body>
 </html>

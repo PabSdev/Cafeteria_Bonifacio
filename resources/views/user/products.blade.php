@@ -171,9 +171,7 @@
             </div>
         </div>
     </div>
-    <script src="https://js.stripe.com/v3/"></script>
     <!-- Scripts personalizados -->
-    @vite('resources/js/shopping/stripe.js')
     @vite('resources/js/shopping/cart.js')
     @vite('resources/js/shopping/filter.js')
 </body>
