@@ -17,10 +17,6 @@ Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
 
-Route::get('/register', function () {
-    return view('auth.register');
-})->name('register');
-
 // Rutas de compras
 Route::get('/shopping', [ProductsController::class, 'shopping'])->name('shopping');
 
@@ -29,7 +25,7 @@ Route::post('/custom-login', [AuthController::class, 'login'])->name('custom-log
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
-Route::post('/logados', [AuthController::class, 'logados'])->name('logados');
+Route::match(['get', 'post'], '/logados', [AuthController::class, 'logados'])->name('logados');
 
 // Rutas de usuarios (usando UserController)
 Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
