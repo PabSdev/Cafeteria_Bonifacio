@@ -1,3 +1,4 @@
+<!-- filepath: c:\tfg\Cafeteria_Bonifacio\resources\views\user\confirmation.blade.php -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,7 +12,7 @@
     <div class="bg-white p-8 rounded-lg shadow-md text-center">
         <h1 class="text-2xl font-bold text-amber-600 mb-4">¡Gracias por tu pedido!</h1>
         <p class="text-gray-700 mb-4">Tu ID de pedido es:</p>
-        <span class="text-xl font-bold text-gray-900">{{ $id }}</span>
+        <span class="text-xl font-bold text-gray-900">{{ $order->id }}</span>
         <p class="text-gray-500 mt-4">Por favor, guarda este ID para identificar tu pedido.</p>
     </div>
 </body>
