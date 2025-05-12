@@ -43,9 +43,6 @@ Route::put('/products/{id}', [ProductsController::class, 'update'])->name('produ
 
 Route::get('/menu', [ProductsController::class, 'showMenu'])->name('menu');
 
-Route::post('/api/create-payment-intent', [StripeController::class, 'createPaymentIntent']);
-
-Route::get('/kitchen/orders', [OrderController::class, 'kitchen'])->name('kitchen.orders');
 Route::get('/order/confirmation/{id}', [OrderController::class, 'confirmation'])->name('user.confirmation');
 Route::put('/order/update/{id}', [OrderController::class, 'update'])->name('order.update');
 Route::post('/order/create', [OrderController::class, 'create'])->name('order.create');
