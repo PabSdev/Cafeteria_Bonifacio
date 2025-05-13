@@ -160,7 +160,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div class="flex items-center justify-center gap-2 mb-4">
             <i class="fas fa-coffee text-2xl text-[#f39c12]"></i>
-            <h3 class="text-xl font-bold text-[#f39c12]">Cafeteria Loli</h3>
+            <h3 class="text-xl font-bold text-[#f39c12]">Cafeteria Bonifacio</h3>
         </div>
         <p class="text-[#bdc3c7] mb-4">Tu lugar favorito para disfrutar del mejor café</p>
         <div class="flex gap-4 justify-center">
