@@ -98,7 +98,7 @@
         </div>
         <div class="w-full md:w-1/2 flex justify-center items-center scroll-reveal">
             <img
-                src="https://cdn.qwenlm.ai/output/2ff82bd3-0115-40be-8ef8-1685eb13a3af/t2i/13c1d79a-1e8b-470b-bf9c-528dda1b61bb/ec9e7a56-c5e8-4ccf-892f-bb1af81c2c60.png"
+                src="https://sdmntprukwest.oaiusercontent.com/files/00000000-57e4-6243-a3be-2f9300dcb2af/raw?se=2025-05-13T07%3A16%3A04Z&sp=r&sv=2024-08-04&sr=b&scid=00000000-0000-0000-0000-000000000000&skoid=0a4a0f0c-99ac-4752-9d87-cfac036fa93f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-05-13T05%3A21%3A09Z&ske=2025-05-14T05%3A21%3A09Z&sks=b&skv=2024-08-04&sig=sIr9Ovx7DzdukuLLY4W8/Oo/f8EuHnB8V/F0N3Ln6RY%3D"
                 class="w-full max-w-md rounded-xl shadow-2xl animate__animated animate__zoomIn"
                 alt="Café">
         </div>
