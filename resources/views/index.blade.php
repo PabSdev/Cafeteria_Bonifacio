@@ -98,7 +98,7 @@
         </div>
         <div class="w-full md:w-1/2 flex justify-center items-center scroll-reveal">
             <img
-                src="https://sdmntprukwest.oaiusercontent.com/files/00000000-57e4-6243-a3be-2f9300dcb2af/raw?se=2025-05-13T07%3A16%3A04Z&sp=r&sv=2024-08-04&sr=b&scid=00000000-0000-0000-0000-000000000000&skoid=0a4a0f0c-99ac-4752-9d87-cfac036fa93f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-05-13T05%3A21%3A09Z&ske=2025-05-14T05%3A21%3A09Z&sks=b&skv=2024-08-04&sig=sIr9Ovx7DzdukuLLY4W8/Oo/f8EuHnB8V/F0N3Ln6RY%3D"
+                src="https://sdmntprukwest.oaiusercontent.com/files/00000000-57e4-6243-a3be-2f9300dcb2af/raw?se=2025-05-14T08%3A05%3A51Z&sp=r&sv=2024-08-04&sr=b&scid=00000000-0000-0000-0000-000000000000&skoid=b32d65cd-c8f1-46fb-90df-c208671889d4&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-05-14T07%3A00%3A58Z&ske=2025-05-15T07%3A00%3A58Z&sks=b&skv=2024-08-04&sig=aQR9H1d%2B8ujLnchl%2BpimQZCxV5Twwj3tFmBs/UD9c88%3D"
                 class="w-full max-w-md rounded-xl shadow-2xl animate__animated animate__zoomIn"
                 alt="Café">
         </div>
