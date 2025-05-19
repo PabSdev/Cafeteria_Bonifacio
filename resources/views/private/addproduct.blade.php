@@ -54,7 +54,7 @@
                     <button type="submit">Cerrar sesión</button>
                 </form>
             </nav>
-        </aside>
+        </aside>o
 
         <!-- Contenido Principal -->
         <main class="flex-1 w-full lg:ml-64 p-4 lg:p-8">
