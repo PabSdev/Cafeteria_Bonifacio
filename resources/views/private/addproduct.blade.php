@@ -32,7 +32,7 @@
                 <a href="{{ route('admin') }}"
                    class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white">
                     <i class="fas fa-tachometer-alt mr-3"></i>
-                    <span>Dashboard</span>
+                    <span>Panel de Control</span>
                 </a>
                 <a href="#users"
                    class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white">
