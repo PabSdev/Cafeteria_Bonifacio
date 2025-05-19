@@ -105,14 +105,14 @@
     </div>
 
     <!-- Botón flotante de carrito (visible SOLO en móvil) -->
-    <button
-        class="toggle-cart cart-button md:hidden"
-        style="display: none;">
-        <i class="fas fa-shopping-cart text-xl"></i>
-        <span class="cart-count absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-            0
-        </span>
-    </button>
+<!-- Botón flotante de carrito (visible SOLO en móvil) -->
+<button
+    class="toggle-cart cart-button md:hidden">
+    <i class="fas fa-shopping-cart text-xl"></i>
+    <span class="cart-count absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+        0
+    </span>
+</button>
 
     <!-- Fondo semi-transparente -->
     <div class="backdrop toggle-cart"></div>

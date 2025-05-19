@@ -88,6 +88,11 @@ document.addEventListener('DOMContentLoaded', function () {
       element.style.display = count > 0 ? 'flex' : 'none';
     });
 
+    const mobileCartButton = document.querySelector('.cart-button.md\\:hidden');
+    if (mobileCartButton) {
+      mobileCartButton.style.display = count > 0 ? 'flex' : 'none';
+    }
+
     // Mensaje de carrito vacío
     if (elements.emptyCartMessage) {
       elements.emptyCartMessage.style.display =
