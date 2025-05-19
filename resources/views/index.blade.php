@@ -49,7 +49,7 @@
     <div id="mobile-menu" class="md:hidden hidden bg-[#2c3e50] border-t border-[#34495e]">
         <div class="px-2 pt-2 pb-3 space-y-1">
             <a href="#Inicio" class="block py-3 px-4 text-[#f39c12] hover:bg-[#34495e] rounded-md">Inicio</a>
-            <a href="#Mision" class="nav-link text-[#f39c12] hover:text-[#e67e22]">Mision</a>
+            <a href="#Mision" class="block py-3 px-4 text-[#f39c12] hover:bg-[#34495e] rounded-md">Mision</a>
             <a href="#Menu" class="block py-3 px-4 text-[#f39c12] hover:bg-[#34495e] rounded-md">Menú</a>
             <a href="#SobreNosotros" class="block py-3 px-4 text-[#f39c12] hover:bg-[#34495e] rounded-md">Sobre
                 Nosotros</a>
