@@ -23,9 +23,9 @@
             <nav class="hidden md:flex items-center space-x-8">
                 <a href="#Inicio" class="nav-link text-[#f39c12] hover:text-[#e67e22]">Inicio</a>
                 <a href="#Menu" class="nav-link text-[#f39c12] hover:text-[#e67e22]">Menú</a>
+                <a href="#Mision" class="nav-link text-[#f39c12] hover:text-[#e67e22]">Mision</a>
                 <a href="#SobreNosotros" class="nav-link text-[#f39c12] hover:text-[#e67e22]">Sobre Nosotros</a>
                 <a href="#Contacto" class="nav-link text-[#f39c12] hover:text-[#e67e22]">Contacto</a>
-                <a href="#Mision" class="nav-link text-[#f39c12] hover:text-[#e67e22]">Mision</a>
                 <a href="/login"
                    class="bg-[#f39c12] text-white px-4 py-2 rounded-md hover:bg-[#e67e22] transition-colors duration-300">
                     <i class="fas fa-user mr-2"></i>Login
