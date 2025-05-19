@@ -25,6 +25,7 @@
                 <a href="#Menu" class="nav-link text-[#f39c12] hover:text-[#e67e22]">Menú</a>
                 <a href="#SobreNosotros" class="nav-link text-[#f39c12] hover:text-[#e67e22]">Sobre Nosotros</a>
                 <a href="#Contacto" class="nav-link text-[#f39c12] hover:text-[#e67e22]">Contacto</a>
+                <a href="#Mision" class="nav-link text-[#f39c12] hover:text-[#e67e22]">Mision</a>
                 <a href="/login"
                    class="bg-[#f39c12] text-white px-4 py-2 rounded-md hover:bg-[#e67e22] transition-colors duration-300">
                     <i class="fas fa-user mr-2"></i>Login
@@ -101,6 +102,69 @@
                 src="https://www.somoselcafe.com.ar/img/novedades/87.jpg"
                 class="w-full max-w-md rounded-xl shadow-2xl animate__animated animate__zoomIn"
                 alt="Café">
+        </div>
+    </div>
+</section>
+
+<!-- Misión -->
+<section id="Mision" class="py-20 bg-[#f5f5f5] text-[#2c3e50] px-4 sm:px-8 md:px-12">
+    <div class="max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center gap-12">
+        <div class="md:w-1/2 scroll-reveal">
+            <div class="bg-white p-8 rounded-xl shadow-lg relative">
+                <blockquote class="text-lg italic text-gray-600 mb-6">
+                    "Un buen café no solo despierta el cuerpo, sino también el alma. En Cafetería Bonifacio, 
+                    cada taza cuenta una historia y cada cliente forma parte de nuestra familia."
+                </blockquote>
+                <div class="grid grid-cols-2 gap-6 mt-8">
+                    <div class="flex items-center">
+                        <i class="fas fa-home text-3xl text-[#f39c12] mr-4"></i>
+                        <span class="font-medium">Ambiente hogareño</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-heart text-3xl text-[#f39c12] mr-4"></i>
+                        <span class="font-medium">Atención cercana</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-users text-3xl text-[#f39c12] mr-4"></i>
+                        <span class="font-medium">Comunidad local</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-mug-hot text-3xl text-[#f39c12] mr-4"></i>
+                        <span class="font-medium">Café de calidad</span>
+                    </div>
+                </div>
+                <div class="absolute -top-4 -right-4 bg-[#f39c12] text-white w-16 h-16 rounded-full flex items-center justify-center">
+                    <i class="fas fa-star text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="md:w-1/2 text-center md:text-left scroll-reveal mb-10 md:mb-0">
+            <span class="inline-block px-4 py-1 bg-[#f39c12] text-white rounded-full text-sm font-medium mb-4">
+                NUESTRA MISIÓN
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-bold mb-5 text-[#f39c12]">Un hogar para cada madrileño</h2>
+            <p class="text-base sm:text-lg mb-6 leading-relaxed">
+                En Cafetería Bonifacio, nuestra misión va más allá de servir café. 
+                Nos dedicamos a crear un espacio acogedor donde cualquier madrileño pueda sentirse 
+                como en casa, un rincón de la ciudad donde escapar del bullicio diario.
+            </p>
+            <p class="text-base sm:text-lg mb-8 leading-relaxed">
+                Creemos en el poder de una buena taza de café para unir personas, inspirar conversaciones 
+                y crear momentos que perduran. Cada detalle de nuestro local, desde la música hasta la 
+                iluminación, está pensado para que nuestros clientes encuentren aquí su segundo hogar.
+            </p>
+
+            <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+                <a href="#SobreNosotros" class="px-6 py-3 text-lg font-bold bg-[#f39c12] text-white rounded-lg hover:bg-[#e67e22]
+                    hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
+                    <i class="fas fa-users mr-2"></i>Conoce nuestro equipo
+                </a>
+                <a href="#Contacto" class="px-6 py-3 text-lg font-bold border-2 border-[#f39c12] text-[#f39c12] rounded-lg
+                    hover:bg-[#f39c12] hover:text-white hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
+                    <i class="fas fa-map-marker-alt mr-2"></i>Visítanos
+                </a>
+            </div>
         </div>
     </div>
 </section>
