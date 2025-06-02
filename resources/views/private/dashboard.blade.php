@@ -398,13 +398,6 @@
                                             {{ $order->created_at->format('M d, Y H:i') }}
                                         </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm font-medium">
-                                            {{-- Puedes añadir enlaces a acciones específicas del pedido si tienes rutas para ello --}}
-                                            {{-- <a href="{{ route('orders.show.admin', $order->id) }}" class="text-indigo-600 hover:text-indigo-900 mr-2 lg:mr-3" title="Ver Detalles">
-                                                <i class="fas fa-eye"></i>
-                                            </a> --}}
-                                            {{-- <a href="{{ route('orders.edit.admin', $order->id) }}" class="text-blue-600 hover:text-blue-900 mr-2 lg:mr-3" title="Editar Pedido">
-                                                <i class="fas fa-edit"></i>
-                                            </a> --}}
                                         </td>
                                     </tr>
                                 @endforeach

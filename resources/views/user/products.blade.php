@@ -105,7 +105,6 @@
     </div>
 
     <!-- Botón flotante de carrito (visible SOLO en móvil) -->
-<!-- Botón flotante de carrito (visible SOLO en móvil) -->
 <button
     class="toggle-cart cart-button md:hidden">
     <i class="fas fa-shopping-cart text-xl"></i>
@@ -157,6 +156,9 @@
                         class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-amber-500"
                         required
                     >
+                    {{-- Campo oculto para el total del carrito --}}
+                    <input type="hidden" name="cart_total" id="cart-total-input" value="0">
+
                     <button
                         type="submit"
                         class="w-full py-3 bg-green-500 text-white rounded-lg font-medium hover:bg-green-600 transition-colors">

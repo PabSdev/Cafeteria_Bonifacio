@@ -2,69 +2,73 @@ document.addEventListener('DOMContentLoaded', function () {
   // Estado de la aplicación
   const state = {
     cart: [],
-    showCart: false, // Estado para mostrar/ocultar el carrito
+    showCart: false,
   };
 
   // Elementos del DOM
   const elements = {
-    cartCount: document.querySelectorAll('.cart-count'),
+    cartCount: document.querySelectorAll('.cart-count'), // Contadores de ítems (puede haber varios)
     cartItemsContainer: document.querySelector('.cart-items-container'),
     emptyCartMessage: document.querySelector('.empty-cart-message'),
-    cartTotal: document.querySelector('.cart-total'),
-    cartDrawer: document.querySelector('.cart-drawer'), // Drawer del carrito
-    backdrop: document.querySelector('.backdrop'), // Fondo semi-transparente
-    toggleCartButtons: document.querySelectorAll('.toggle-cart'), // Botones para abrir/cerrar el carrito
-    payButton: document.querySelector('#checkout-button'),
-    clearCartButton: document.querySelector('#clear-cart-button'),
+    cartTotalDisplay: document.querySelector('.cart-total'), // Para mostrar el total al usuario
+    cartTotalInput: document.getElementById('cart-total-input'), // Input oculto para el formulario
+    cartDrawer: document.querySelector('.cart-drawer'),
+    backdrop: document.querySelector('.backdrop'),
+    toggleCartButtons: document.querySelectorAll('.toggle-cart'),
+    clearCartButton: document.getElementById('clear-cart-button'),
+    addToCartButtons: document.querySelectorAll('.add-to-cart'),
+    cashPaymentForm: document.getElementById('cash-payment-form'),
+    mobileCartButton: document.querySelector('.cart-button.md\\:hidden'), // Botón flotante móvil
   };
 
   // Métodos para manipular el carrito
   const cartMethods = {
     addToCart: function (product) {
       const existingItem = state.cart.find((item) => item.id === product.id);
-
       if (existingItem) {
         existingItem.quantity += 1;
       } else {
         state.cart.push({
           id: product.id,
           name: product.name,
-          price: product.price,
+          price: parseFloat(product.price), // Asegurar que el precio es un número
           image: product.image,
           quantity: 1,
         });
       }
-      localStorage.setItem('cart', JSON.stringify(state.cart));
+      cartMethods.saveCart();
       updateCartUI();
     },
 
     removeItem: function (index) {
       state.cart.splice(index, 1);
-      localStorage.setItem('cart', JSON.stringify(state.cart));
+      cartMethods.saveCart();
       updateCartUI();
     },
 
     updateQuantity: function (index, change) {
-      state.cart[index].quantity += change;
-      if (state.cart[index].quantity <= 0) {
-        cartMethods.removeItem(index);
-      } else {
-        localStorage.setItem('cart', JSON.stringify(state.cart));
-        updateCartUI();
+      if (state.cart[index]) {
+        state.cart[index].quantity += change;
+        if (state.cart[index].quantity <= 0) {
+          cartMethods.removeItem(index);
+        } else {
+          cartMethods.saveCart();
+          updateCartUI();
+        }
       }
     },
 
-    // Vaciar carrito
     clearCart: function () {
       state.cart = [];
-      localStorage.setItem('cart', JSON.stringify(state.cart));
+      cartMethods.saveCart();
       updateCartUI();
     },
 
-    cartTotal: function () {
-      return state.cart
-        .reduce((total, item) => total + item.price * item.quantity, 0)
-        .toFixed(2);
+    calculateTotal: function () {
+      return state.cart.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+      );
     },
 
     cartCount: function () {
@@ -73,24 +77,56 @@ document.addEventListener('DOMContentLoaded', function () {
 
     toggleCart: function () {
       state.showCart = !state.showCart;
-      elements.cartDrawer.classList.toggle('open', state.showCart);
-      elements.backdrop.classList.toggle('open', state.showCart);
+      if (elements.cartDrawer)
+        elements.cartDrawer.classList.toggle('open', state.showCart);
+      if (elements.backdrop)
+        elements.backdrop.classList.toggle('open', state.showCart);
       document.body.style.overflow = state.showCart ? 'hidden' : '';
+    },
+
+    saveCart: function () {
+      localStorage.setItem('cart', JSON.stringify(state.cart));
+    },
+
+    loadCart: function () {
+      const savedCart = localStorage.getItem('cart');
+      if (savedCart) {
+        try {
+          const parsedCart = JSON.parse(savedCart);
+          if (Array.isArray(parsedCart)) {
+            state.cart = parsedCart.map((item) => ({
+              ...item,
+              price: parseFloat(item.price),
+              quantity: parseInt(item.quantity, 10) || 1,
+            }));
+          } else {
+            state.cart = [];
+            localStorage.removeItem('cart');
+          }
+        } catch (e) {
+          console.error('Error al parsear el carrito desde localStorage:', e);
+          state.cart = [];
+          localStorage.removeItem('cart');
+        }
+      }
     },
   };
 
   // Función para actualizar la interfaz de usuario del carrito
   function updateCartUI() {
-    // Actualizar contador de elementos
     const count = cartMethods.cartCount();
+    const totalValue = cartMethods.calculateTotal();
+    const totalFormatted = totalValue.toFixed(2);
+
+    // Actualizar contadores de ítems
     elements.cartCount.forEach((element) => {
       element.textContent = count;
       element.style.display = count > 0 ? 'flex' : 'none';
     });
 
-    const mobileCartButton = document.querySelector('.cart-button.md\\:hidden');
-    if (mobileCartButton) {
-      mobileCartButton.style.display = count > 0 ? 'flex' : 'none';
+    // Visibilidad del botón flotante móvil (el botón en sí, el contador interno ya se actualiza)
+    if (elements.mobileCartButton) {
+      elements.mobileCartButton.style.display = 'flex'; // O 'flex' si siempre debe estar visible y solo el contador cambia
     }
 
     // Mensaje de carrito vacío
@@ -99,108 +135,117 @@ document.addEventListener('DOMContentLoaded', function () {
         state.cart.length === 0 ? 'flex' : 'none';
     }
 
-    // Lista de ITEMS del carrito
+    // Renderizar ítems del carrito
     if (elements.cartItemsContainer) {
-      elements.cartItemsContainer.innerHTML = '';
+      elements.cartItemsContainer.innerHTML = ''; // Limpiar
       state.cart.forEach((item, index) => {
         const itemElement = document.createElement('div');
         itemElement.className =
           'flex items-center py-3 border-b last:border-b-0';
         itemElement.innerHTML = `
-          <div class="w-16 h-16 bg-gray-100 rounded overflow-hidden mr-3">
+          <div class="w-16 h-16 bg-gray-100 rounded overflow-hidden mr-3 flex-shrink-0">
               <img src="${item.image}" alt="${
           item.name
-        }" class="w-full h-full object-cover">
+        }" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/64x64.png?text=No+Img'; this.alt='Imagen no disponible';">
           </div>
-          <div class="flex-1">
-              <h3 class="font-medium text-sm">${item.name}</h3>
+          <div class="flex-1 min-w-0">
+              <h3 class="font-medium text-sm truncate" title="${item.name}">${
+          item.name
+        }</h3>
               <div class="flex justify-between items-center mt-2">
                   <div class="flex items-center bg-gray-100 rounded-lg">
-                      <button 
-                          class="quantity-decrease w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700"
-                          data-index="${index}">
-                          <i class="fas fa-minus text-xs"></i>
-                      </button>
-                      <span class="w-8 text-center">${item.quantity}</span>
-                      <button 
-                          class="quantity-increase w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700"
-                          data-index="${index}">
-                          <i class="fas fa-plus text-xs"></i>
-                      </button>
+                      <button class="quantity-decrease w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700" data-index="${index}"><i class="fas fa-minus text-xs"></i></button>
+                      <span class="w-8 text-center text-sm">${
+                        item.quantity
+                      }</span>
+                      <button class="quantity-increase w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700" data-index="${index}"><i class="fas fa-plus text-xs"></i></button>
                   </div>
-                  <span class="font-medium">${(
+                  <span class="font-medium text-sm whitespace-nowrap ml-2">${(
                     item.price * item.quantity
                   ).toFixed(2)}€</span>
               </div>
           </div>
-          <button 
-              class="remove-item ml-2 text-gray-400 hover:text-red-500 p-2"
-              data-index="${index}">
-              <i class="fas fa-trash-alt"></i>
-          </button>
+          <button class="remove-item ml-2 text-gray-400 hover:text-red-500 p-2 flex-shrink-0" data-index="${index}"><i class="fas fa-trash-alt"></i></button>
         `;
-
         elements.cartItemsContainer.appendChild(itemElement);
 
-        // Event listeners
-        const decreaseBtn = itemElement.querySelector('.quantity-decrease');
-        const increaseBtn = itemElement.querySelector('.quantity-increase');
-        const removeBtn = itemElement.querySelector('.remove-item');
-
-        decreaseBtn.addEventListener('click', () =>
-          cartMethods.updateQuantity(index, -1)
-        );
-        increaseBtn.addEventListener('click', () =>
-          cartMethods.updateQuantity(index, 1)
-        );
-        removeBtn.addEventListener('click', () =>
-          cartMethods.removeItem(index)
-        );
+        itemElement
+          .querySelector('.quantity-decrease')
+          .addEventListener('click', () =>
+            cartMethods.updateQuantity(index, -1)
+          );
+        itemElement
+          .querySelector('.quantity-increase')
+          .addEventListener('click', () =>
+            cartMethods.updateQuantity(index, 1)
+          );
+        itemElement
+          .querySelector('.remove-item')
+          .addEventListener('click', () => cartMethods.removeItem(index));
       });
     }
 
-    // Actualizar el total
-    if (elements.cartTotal) {
-      elements.cartTotal.textContent = `${cartMethods.cartTotal()}€`;
+    // Actualizar total visible
+    if (elements.cartTotalDisplay) {
+      elements.cartTotalDisplay.textContent = `${totalFormatted}€`;
     }
 
-    // Habilitar/deshabilitar el botón de Stripe
-    if (elements.payButton) {
-      elements.payButton.disabled = state.cart.length === 0;
-      elements.payButton.classList.toggle(
-        'opacity-50',
-        state.cart.length === 0
+    // Actualizar input oculto del total
+    if (elements.cartTotalInput) {
+      elements.cartTotalInput.value = totalFormatted;
+    }
+
+    // Habilitar/deshabilitar botón de pago en efectivo
+    if (elements.cashPaymentForm) {
+      const submitButton = elements.cashPaymentForm.querySelector(
+        'button[type="submit"]'
       );
+      if (submitButton) {
+        const isEmpty = state.cart.length === 0;
+        submitButton.disabled = isEmpty;
+        submitButton.classList.toggle('opacity-50', isEmpty);
+        submitButton.classList.toggle('cursor-not-allowed', isEmpty);
+      }
     }
   }
 
   // Inicializar la aplicación
   function init() {
-    // Cargar carrito desde localStorage
-    const savedCart = localStorage.getItem('cart');
-    if (savedCart) {
-      state.cart = JSON.parse(savedCart);
-    }
+    cartMethods.loadCart();
 
-    // Botones para abrir/cerrar carrito
     elements.toggleCartButtons.forEach((button) => {
-      button.addEventListener('click', cartMethods.toggleCart);
-    });
-
-    // Botones para agregar al carrito
-    document.querySelectorAll('.add-to-cart').forEach((button) => {
-      button.addEventListener('click', () => {
-        const productData = JSON.parse(button.dataset.product);
-        cartMethods.addToCart(productData);
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        cartMethods.toggleCart();
       });
     });
 
-    // Botón para vaciar el carrito
+    elements.addToCartButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        try {
+          const productData = JSON.parse(button.dataset.product);
+          if (productData && typeof productData.price !== 'undefined') {
+            cartMethods.addToCart(productData);
+          } else {
+            console.error(
+              'Datos del producto inválidos o precio no definido:',
+              button.dataset.product
+            );
+          }
+        } catch (e) {
+          console.error(
+            'Error al parsear datos del producto:',
+            e,
+            button.dataset.product
+          );
+        }
+      });
+    });
+
     if (elements.clearCartButton) {
       elements.clearCartButton.addEventListener('click', cartMethods.clearCart);
     }
 
-    // Actualizar la interfaz
     updateCartUI();
   }
 
