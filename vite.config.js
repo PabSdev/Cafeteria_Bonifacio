@@ -25,4 +25,8 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+     build: {
+        // Esto asegura que los archivos de audio se copien a la carpeta pública
+        assetsInlineLimit: 0,
+    },
 })

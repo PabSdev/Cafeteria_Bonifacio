@@ -1,3 +1,5 @@
+import notificationSound from '../../audio/notification.mp3'; // Ajusta la ruta según tu estructura
+
 document.addEventListener('DOMContentLoaded', function () {
   // Estado de la aplicación
   const state = {
@@ -261,13 +263,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function playNotificationSound() {
     try {
-      const audio = new Audio('/audio/notification.mp3');
-      audio.play();
+      const audio = new Audio(notificationSound);
+      const playPromise = audio.play();
+
+      if (playPromise !== undefined) {
+        playPromise.catch((error) => {
+          console.error('Error al reproducir el audio:', error);
+        });
+      }
     } catch (e) {
       console.error('Error al reproducir sonido:', e);
     }
   }
-
   // Iniciar la aplicación
   init();
 });
