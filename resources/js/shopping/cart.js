@@ -246,7 +246,26 @@ document.addEventListener('DOMContentLoaded', function () {
       elements.clearCartButton.addEventListener('click', cartMethods.clearCart);
     }
 
+    // NUEVO: Añadir evento para reproducir sonido al enviar el formulario de pago
+    if (elements.cashPaymentForm) {
+      elements.cashPaymentForm.addEventListener('submit', function (e) {
+        // Reproducir sonido de notificación al hacer clic en "Pagar en efectivo"
+        playNotificationSound();
+
+        // El formulario continuará enviándose normalmente
+      });
+    }
+
     updateCartUI();
+  }
+
+  function playNotificationSound() {
+    try {
+      const audio = new Audio('/audio/notification.mp3');
+      audio.play();
+    } catch (e) {
+      console.error('Error al reproducir sonido:', e);
+    }
   }
 
   // Iniciar la aplicación
