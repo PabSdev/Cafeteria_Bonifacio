@@ -300,15 +300,10 @@
                 </div>
             </section>
 
-            <!-- Gestión de Pedidos -->
+           <!-- Gestión de Pedidos -->
             <section id="orders" class="mb-12">
                 <div class="flex justify-between items-center mb-6">
                     <h3 class="text-lg lg:text-2xl font-semibold text-gray-800">Gestión de Pedidos</h3>
-                    <!-- Podrías añadir un botón para crear pedidos manualmente si es necesario -->
-                    <!-- <a href="{{-- route('orders.create') --}}"
-                       class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 lg:px-4 lg:py-2 rounded text-sm lg:text-base">
-                        <i class="fas fa-plus mr-1 lg:mr-2"></i> Añadir Pedido
-                    </a> -->
                 </div>
                 <div class="bg-white rounded-lg shadow overflow-hidden">
                     <div class="overflow-x-auto">
@@ -321,7 +316,7 @@
                                 </th>
                                 <th scope="col"
                                     class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Cliente
+                                    Info Cliente
                                 </th>
                                 <th scope="col"
                                     class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -343,10 +338,8 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                             @php
-                                // Asumiendo que tienes un modelo Order y una relación 'user' en el modelo Order
-                                // para obtener el nombre del cliente.
-                                // En un controlador, sería mejor pasar esta colección a la vista.
-                                $orders = App\Models\Order::with('user')->orderBy('created_at', 'desc')->get();
+                                // Obtener pedidos directamente. Es mejor pasar esto desde el controlador.
+                                $orders = App\Models\Order::orderBy('created_at', 'desc')->get();
                             @endphp
                             @if(count($orders) > 0)
                                 @foreach($orders as $order)
@@ -355,16 +348,23 @@
                                             <div class="text-xs lg:text-sm text-gray-900">#{{ $order->id }}</div>
                                         </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap">
-                                            <div class="flex items-center">
-                                                {{-- Asumiendo que el modelo Order tiene una relación user() o campos customer_name/customer_email --}}
-                                                <div class="ml-3 lg:ml-4">
-                                                    <div class="text-xs lg:text-sm font-medium text-gray-900">
-                                                        {{ $order->user ? $order->user->name : ($order->customer_name ?? 'N/A') }}
-                                                    </div>
-                                                    <div class="text-xs text-gray-500 sm:hidden">
-                                                        {{ $order->user ? $order->user->email : ($order->customer_email ?? '') }}
-                                                    </div>
+                                            <div class="ml-3 lg:ml-4">
+                                                {{-- Mostrar user_id si existe, o customer_name si existe --}}
+                                                <div class="text-xs lg:text-sm font-medium text-gray-900">
+                                                    @if(isset($order->user_id))
+                                                        ID Usuario: {{ $order->user_id }}
+                                                    @elseif(isset($order->customer_name))
+                                                        {{ $order->customer_name }}
+                                                    @else
+                                                        N/A
+                                                    @endif
                                                 </div>
+                                                {{-- Mostrar customer_email si existe --}}
+                                                @if(isset($order->customer_email))
+                                                <div class="text-xs text-gray-500 sm:hidden">
+                                                    {{ $order->customer_email }}
+                                                </div>
+                                                @endif
                                             </div>
                                         </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap">
@@ -398,15 +398,13 @@
                                             {{ $order->created_at->format('M d, Y H:i') }}
                                         </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm font-medium">
-                                            <a href="{{-- route('orders.show', $order->id) --}}"
-                                               class="text-indigo-600 hover:text-indigo-900 mr-2 lg:mr-3" title="Ver Detalles">
+                                            {{-- Puedes añadir enlaces a acciones específicas del pedido si tienes rutas para ello --}}
+                                            {{-- <a href="{{ route('orders.show.admin', $order->id) }}" class="text-indigo-600 hover:text-indigo-900 mr-2 lg:mr-3" title="Ver Detalles">
                                                 <i class="fas fa-eye"></i>
-                                            </a>
-                                            <a href="{{-- route('orders.edit', $order->id) --}}"
-                                               class="text-blue-600 hover:text-blue-900 mr-2 lg:mr-3" title="Editar Pedido">
+                                            </a> --}}
+                                            {{-- <a href="{{ route('orders.edit.admin', $order->id) }}" class="text-blue-600 hover:text-blue-900 mr-2 lg:mr-3" title="Editar Pedido">
                                                 <i class="fas fa-edit"></i>
-                                            </a>
-                                            <!-- Podrías añadir un formulario para cancelar/eliminar pedidos si es necesario -->
+                                            </a> --}}
                                         </td>
                                     </tr>
                                 @endforeach
