@@ -211,6 +211,68 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  // Función para reproducir el sonido con opciones para debugging
+  function playNotificationSound() {
+    console.log('Intentando reproducir sonido...');
+
+    try {
+      // Crear elemento de audio
+      const audio = new Audio();
+
+      // Verificar si podemos usar un recurso importado o uno desde carpeta pública
+      let audioSrc = '';
+      try {
+        audioSrc = notificationSound;
+        console.log('Usando audio importado:', audioSrc);
+      } catch (e) {
+        // Si falla la importación, intentar con ruta pública
+        audioSrc = '/audio/notification.mp3';
+        console.log('Usando audio de carpeta pública:', audioSrc);
+      }
+
+      audio.src = audioSrc;
+      audio.volume = 1.0; // Volumen máximo
+
+      // Monitorear eventos para debugging
+      audio.addEventListener('canplaythrough', () => {
+        console.log('Audio listo para reproducirse');
+      });
+
+      audio.addEventListener('play', () => {
+        console.log('Audio comenzó a reproducirse');
+      });
+
+      audio.addEventListener('error', (e) => {
+        console.error('Error de audio:', e);
+      });
+
+      // Intentar reproducir
+      const playPromise = audio.play();
+
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            console.log('Reproducción iniciada correctamente');
+          })
+          .catch((error) => {
+            console.error('Error reproduciendo audio:', error);
+
+            // Posible error por política de autoplay, intentar reproducir después de un evento de usuario
+            document.addEventListener(
+              'click',
+              function playOnClick() {
+                audio.play();
+                document.removeEventListener('click', playOnClick);
+              },
+              { once: true }
+            );
+          });
+      }
+    } catch (e) {
+      console.error('Error general al reproducir sonido:', e);
+    }
+  }
+
   // Inicializar la aplicación
   function init() {
     cartMethods.loadCart();
@@ -248,33 +310,35 @@ document.addEventListener('DOMContentLoaded', function () {
       elements.clearCartButton.addEventListener('click', cartMethods.clearCart);
     }
 
-    // NUEVO: Añadir evento para reproducir sonido al enviar el formulario de pago
+    // MODIFICADO: Prevenir el envío inmediato del formulario para dar tiempo al audio
     if (elements.cashPaymentForm) {
       elements.cashPaymentForm.addEventListener('submit', function (e) {
-        // Reproducir sonido de notificación al hacer clic en "Pagar en efectivo"
+        // Prevenir el envío del formulario para permitir que el audio se reproduzca
+        e.preventDefault();
+
+        // Verificar que hay artículos en el carrito
+        if (state.cart.length === 0) {
+          return; // No hacer nada si el carrito está vacío
+        }
+
+        // Intentar reproducir el sonido
+        console.log('Procesando pago...');
         playNotificationSound();
 
-        // El formulario continuará enviándose normalmente
+        // Guardar referencia al formulario
+        const form = this;
+
+        // Enviar el formulario después de un retraso para dar tiempo al audio
+        setTimeout(() => {
+          console.log('Enviando formulario...');
+          form.submit();
+        }, 1000); // Esperar 1 segundo
       });
     }
 
     updateCartUI();
   }
 
-  function playNotificationSound() {
-    try {
-      const audio = new Audio(notificationSound);
-      const playPromise = audio.play();
-
-      if (playPromise !== undefined) {
-        playPromise.catch((error) => {
-          console.error('Error al reproducir el audio:', error);
-        });
-      }
-    } catch (e) {
-      console.error('Error al reproducir sonido:', e);
-    }
-  }
   // Iniciar la aplicación
   init();
 });
