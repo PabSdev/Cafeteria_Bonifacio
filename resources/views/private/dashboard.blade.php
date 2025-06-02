@@ -1,5 +1,5 @@
-@php use App\Models\User, App\Models\Productos; @endphp
-    <!DOCTYPE html>
+@php use App\Models\User, App\Models\Productos, App\Models\Order; @endphp
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -42,6 +42,10 @@
                     <i class="fas fa-box mr-3"></i>
                     <span>Productos</span>
                 </a>
+                <a href="#orders" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white">
+                    <i class="fas fa-receipt mr-3"></i>
+                    <span>Pedidos</span>
+                </a>
                 <div class="mt-auto px-4 py-2 text-gray-300">
                     <p class="text-xs uppercase font-bold">Cuenta</p>
                 </div>
@@ -79,7 +83,7 @@
                 <div class="bg-white rounded-lg shadow p-4 lg:p-6">
                     <div class="flex justify-between items-center">
                         <div>
-                            <p class="text-gray-500 text-xs lg:text-sm">Prodcutos Totales</p>
+                            <p class="text-gray-500 text-xs lg:text-sm">Productos Totales</p>
                             <h3 class="text-xl lg:text-3xl font-bold">{{ Productos::count() }}</h3>
                         </div>
                         <div class="bg-green-100 p-2 lg:p-3 rounded-full">
@@ -254,11 +258,11 @@
                                             </div>
                                         </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap">
-                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
-                    {{ $product->stock > 10 ? 'bg-green-100 text-green-800' :
-                      ($product->stock > 0 ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800') }}">
-                    {{ $product->stock }}
-                </span>
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                                                {{ $product->stock > 10 ? 'bg-green-100 text-green-800' :
+                                                  ($product->stock > 0 ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800') }}">
+                                                {{ $product->stock }}
+                                            </span>
                                         </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm text-gray-900 hidden md:table-cell">
                                             {{ $product->categoria }}
@@ -283,15 +287,166 @@
                                         </td>
                                     </tr>
                                 @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="6" class="px-4 lg:px-6 py-4 text-center text-gray-500">
+                                        No hay productos registrados.
+                                    </td>
+                                </tr>
                             @endif
                             </tbody>
                         </table>
                     </div>
                 </div>
             </section>
+
+            <!-- Gestión de Pedidos -->
+            <section id="orders" class="mb-12">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-lg lg:text-2xl font-semibold text-gray-800">Gestión de Pedidos</h3>
+                    <!-- Podrías añadir un botón para crear pedidos manualmente si es necesario -->
+                    <!-- <a href="{{-- route('orders.create') --}}"
+                       class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 lg:px-4 lg:py-2 rounded text-sm lg:text-base">
+                        <i class="fas fa-plus mr-1 lg:mr-2"></i> Añadir Pedido
+                    </a> -->
+                </div>
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col"
+                                    class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    ID Pedido
+                                </th>
+                                <th scope="col"
+                                    class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Cliente
+                                </th>
+                                <th scope="col"
+                                    class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Estado
+                                </th>
+                                <th scope="col"
+                                    class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
+                                    Total
+                                </th>
+                                <th scope="col"
+                                    class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
+                                    Fecha de Pedido
+                                </th>
+                                <th scope="col"
+                                    class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Opciones
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                            @php
+                                // Asumiendo que tienes un modelo Order y una relación 'user' en el modelo Order
+                                // para obtener el nombre del cliente.
+                                // En un controlador, sería mejor pasar esta colección a la vista.
+                                $orders = App\Models\Order::with('user')->orderBy('created_at', 'desc')->get();
+                            @endphp
+                            @if(count($orders) > 0)
+                                @foreach($orders as $order)
+                                    <tr>
+                                        <td class="px-4 lg:px-6 py-4 whitespace-nowrap">
+                                            <div class="text-xs lg:text-sm text-gray-900">#{{ $order->id }}</div>
+                                        </td>
+                                        <td class="px-4 lg:px-6 py-4 whitespace-nowrap">
+                                            <div class="flex items-center">
+                                                {{-- Asumiendo que el modelo Order tiene una relación user() o campos customer_name/customer_email --}}
+                                                <div class="ml-3 lg:ml-4">
+                                                    <div class="text-xs lg:text-sm font-medium text-gray-900">
+                                                        {{ $order->user ? $order->user->name : ($order->customer_name ?? 'N/A') }}
+                                                    </div>
+                                                    <div class="text-xs text-gray-500 sm:hidden">
+                                                        {{ $order->user ? $order->user->email : ($order->customer_email ?? '') }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-4 lg:px-6 py-4 whitespace-nowrap">
+                                            @php
+                                                $statusClass = '';
+                                                switch (strtolower($order->status)) {
+                                                    case 'pendiente':
+                                                        $statusClass = 'bg-yellow-100 text-yellow-800';
+                                                        break;
+                                                    case 'procesando':
+                                                        $statusClass = 'bg-blue-100 text-blue-800';
+                                                        break;
+                                                    case 'completado':
+                                                        $statusClass = 'bg-green-100 text-green-800';
+                                                        break;
+                                                    case 'cancelado':
+                                                        $statusClass = 'bg-red-100 text-red-800';
+                                                        break;
+                                                    default:
+                                                        $statusClass = 'bg-gray-100 text-gray-800';
+                                                }
+                                            @endphp
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $statusClass }}">
+                                                {{ ucfirst($order->status) }}
+                                            </span>
+                                        </td>
+                                        <td class="px-4 lg:px-6 py-4 whitespace-nowrap hidden sm:table-cell">
+                                            <div class="text-xs lg:text-sm text-gray-900">{{ number_format($order->total_amount, 2) }} €</div>
+                                        </td>
+                                        <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm text-gray-500 hidden md:table-cell">
+                                            {{ $order->created_at->format('M d, Y H:i') }}
+                                        </td>
+                                        <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm font-medium">
+                                            <a href="{{-- route('orders.show', $order->id) --}}"
+                                               class="text-indigo-600 hover:text-indigo-900 mr-2 lg:mr-3" title="Ver Detalles">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="{{-- route('orders.edit', $order->id) --}}"
+                                               class="text-blue-600 hover:text-blue-900 mr-2 lg:mr-3" title="Editar Pedido">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <!-- Podrías añadir un formulario para cancelar/eliminar pedidos si es necesario -->
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="6" class="px-4 lg:px-6 py-4 text-center text-gray-500">
+                                        No hay pedidos registrados.
+                                    </td>
+                                </tr>
+                            @endif
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
         </main>
     </div>
 </div>
+<script>
+    // Script para el menú móvil
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const sidebar = document.getElementById('sidebar');
 
+    if (mobileMenuButton && sidebar) {
+        mobileMenuButton.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+            sidebar.classList.toggle('translate-x-0');
+        });
+    }
+
+    // Script para cerrar el menú lateral al hacer clic en un enlace (opcional)
+    document.querySelectorAll('#sidebar nav a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth < 1024) { // Solo para pantallas pequeñas (lg breakpoint de Tailwind)
+                sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('translate-x-0');
+            }
+        });
+    });
+</script>
 </body>
 </html>
