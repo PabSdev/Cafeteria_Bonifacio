@@ -131,7 +131,7 @@
                                 </th>
                                 <th scope="col"
                                     class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
-                                    Dia de Registro
+                                    Fecha de Registro
                                 </th>
                                 <th scope="col"
                                     class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -140,49 +140,85 @@
                             </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                            @foreach(User::all() as $user)
-                                <tr>
-                                    <td class="px-4 lg:px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div
-                                                class="flex-shrink-0 h-8 w-8 lg:h-10 lg:w-10 bg-gray-200 rounded-full flex items-center justify-center">
-                                                <i class="fas fa-user text-gray-500"></i>
-                                            </div>
-                                            <div class="ml-3 lg:ml-4">
+                            @php $users = User::all(); @endphp
+                            @if(count($users) > 0)
+                                @foreach($users as $user)
+                                    <tr class="hover:bg-gray-50 transition-colors">
+                                        <td class="px-4 lg:px-6 py-4 whitespace-nowrap">
+                                            <div class="flex items-center">
                                                 <div
-                                                    class="text-xs lg:text-sm font-medium text-gray-900">{{ $user->name }}</div>
-                                                <div class="text-xs text-gray-500 sm:hidden">{{ $user->email }}</div>
+                                                    class="flex-shrink-0 h-8 w-8 lg:h-10 lg:w-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                                    <i class="fas fa-user text-blue-500"></i>
+                                                </div>
+                                                <div class="ml-3 lg:ml-4">
+                                                    <div
+                                                        class="text-xs lg:text-sm font-medium text-gray-900">{{ $user->name }}</div>
+                                                    <div class="text-xs text-gray-500 sm:hidden">{{ $user->email }}</div>
+                                                    <div class="text-xs text-gray-400 flex items-center">
+                                                        <i class="far fa-calendar-alt mr-1 text-gray-400"></i>
+                                                        {{ $user->created_at->format('M d, Y') }}
+                                                    </div>
+                                                </div>
                                             </div>
+                                        </td>
+                                        <td class="px-4 lg:px-6 py-4 whitespace-nowrap hidden sm:table-cell">
+                                            <div class="text-xs lg:text-sm text-gray-900">{{ $user->email }}</div>
+                                        </td>
+                                        <td class="px-4 lg:px-6 py-4 whitespace-nowrap">
+                                            @php
+                                                $roleClass = $user->rol == 1 
+                                                    ? 'bg-purple-100 text-purple-800 border border-purple-200' 
+                                                    : 'bg-green-100 text-green-800 border border-green-200';
+                                                $roleIcon = $user->rol == 1 
+                                                    ? 'fas fa-user-shield text-purple-600 mr-1' 
+                                                    : 'fas fa-user text-green-600 mr-1';
+                                            @endphp
+                                            <span class="px-2 py-1 inline-flex items-center text-xs leading-5 font-semibold rounded-full {{ $roleClass }}">
+                                                <i class="{{ $roleIcon }}"></i>
+                                                {{ $user->rol == 1 ? 'Admin' : 'User' }}
+                                            </span>
+                                        </td>
+                                        <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm text-gray-500 hidden md:table-cell">
+                                            <div class="flex items-center">
+                                                <i class="far fa-calendar-alt mr-1 text-gray-400"></i>
+                                                {{ $user->created_at->format('M d, Y') }}
+                                                <span class="mx-1 text-gray-300">|</span>
+                                                <i class="far fa-clock mr-1 text-gray-400"></i>
+                                                {{ $user->created_at->format('H:i') }}
+                                            </div>
+                                        </td>
+                                        <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm font-medium">
+                                            <div class="flex space-x-2">
+                                                <a href="{{ route('users.edit', $user->id) }}"
+                                                    class="text-blue-600 hover:text-blue-900 bg-blue-50 hover:bg-blue-100 p-1.5 rounded-md transition-colors">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <form action="{{ route('users.destroy', $user->id) }}" method="POST"
+                                                        onsubmit="return confirm('¿Está seguro de que desea eliminar este usuario?');"
+                                                        style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="text-red-600 hover:text-red-900 bg-red-50 hover:bg-red-100 p-1.5 rounded-md transition-colors">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="5" class="px-4 lg:px-6 py-8 text-center text-gray-500">
+                                        <div class="flex flex-col items-center justify-center">
+                                            <i class="fas fa-users text-gray-300 text-3xl mb-2"></i>
+                                            <p>No hay usuarios registrados.</p>
+                                            <a href="{{ route('users.create') }}" class="mt-2 text-blue-600 hover:text-blue-800 text-sm">
+                                                <i class="fas fa-plus-circle mr-1"></i> Añadir el primer usuario
+                                            </a>
                                         </div>
                                     </td>
-                                    <td class="px-4 lg:px-6 py-4 whitespace-nowrap hidden sm:table-cell">
-                                        <div class="text-xs lg:text-sm text-gray-900">{{ $user->email }}</div>
-                                    </td>
-                                    <td class="px-4 lg:px-6 py-4 whitespace-nowrap">
-                                        <span
-                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $user->rol == 1 ? 'bg-purple-100 text-purple-800' : 'bg-green-100 text-green-800' }}">
-                                            {{ $user->rol == 1 ? 'Admin' : 'User' }}
-                                        </span>
-                                    </td>
-                                    <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm text-gray-500 hidden md:table-cell">
-                                        {{ $user->created_at->format('M d, Y') }}
-                                    </td>
-                                    <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm font-medium">
-                                        <a href="{{ route('users.edit', $user->id) }}"
-                                           class="text-blue-600 hover:text-blue-900 mr-2 lg:mr-3">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <form action="{{ route('users.destroy', $user->id) }}" method="POST"
-                                              onsubmit="return confirm('Are you sure you want to delete this user?');"
-                                              style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-600 hover:text-red-900"><i
-                                                    class="fas fa-trash"></i></button>
-                                        </form>
-                                    </td>
                                 </tr>
-                            @endforeach
+                            @endif
                             </tbody>
                         </table>
                     </div>
@@ -233,64 +269,98 @@
                             @php $productos = Productos::all(); @endphp
                             @if(count($productos) > 0)
                                 @foreach($productos as $product)
-                                    <tr>
+                                    <tr class="hover:bg-gray-50 transition-colors">
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap">
                                             <div class="flex items-center">
                                                 <div
-                                                    class="flex-shrink-0 h-8 w-8 lg:h-10 lg:w-10 bg-gray-100 rounded flex items-center justify-center">
-                                                    <i class="fas fa-box text-gray-500"></i>
+                                                    class="flex-shrink-0 h-8 w-8 lg:h-10 lg:w-10 bg-blue-100 rounded flex items-center justify-center">
+                                                    <i class="fas fa-box text-blue-500"></i>
                                                 </div>
                                                 <div class="ml-3 lg:ml-4">
                                                     <div
                                                         class="text-xs lg:text-sm font-medium text-gray-900">{{ $product->nombre_producto }}</div>
-                                                    <div class="text-xs text-gray-500 sm:hidden">{{ $product->precio }}
+                                                    <div class="text-xs text-gray-500 sm:hidden">{{ number_format($product->precio, 2) }}
                                                         €
                                                     </div>
-                                                    <div class="text-xs text-gray-400">
-                                                        Añadido: {{ $product->created_at->format('M d, Y H:i') }}</div>
+                                                    <div class="text-xs text-gray-400 flex items-center">
+                                                        <i class="far fa-calendar-alt mr-1 text-gray-400"></i>
+                                                        {{ $product->created_at->format('M d, Y') }}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap hidden sm:table-cell">
                                             <div
-                                                class="text-xs lg:text-sm text-gray-900">{{ number_format($product->precio, 2) }}
+                                                class="text-xs lg:text-sm font-medium text-gray-900">{{ number_format($product->precio, 2) }}
                                                 €
                                             </div>
                                         </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap">
-                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
-                                                {{ $product->stock > 10 ? 'bg-green-100 text-green-800' :
-                                                  ($product->stock > 0 ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800') }}">
-                                                {{ $product->stock }}
+                                            @php
+                                                $stockClass = '';
+                                                $stockIcon = '';
+                                                if ($product->stock > 20) {
+                                                    $stockClass = 'bg-green-100 text-green-800 border border-green-200';
+                                                    $stockIcon = 'fas fa-check-circle text-green-600 mr-1';
+                                                } elseif ($product->stock > 10) {
+                                                    $stockClass = 'bg-blue-100 text-blue-800 border border-blue-200';
+                                                    $stockIcon = 'fas fa-info-circle text-blue-600 mr-1';
+                                                } elseif ($product->stock > 0) {
+                                                    $stockClass = 'bg-yellow-100 text-yellow-800 border border-yellow-200';
+                                                    $stockIcon = 'fas fa-exclamation-circle text-yellow-600 mr-1';
+                                                } else {
+                                                    $stockClass = 'bg-red-100 text-red-800 border border-red-200';
+                                                    $stockIcon = 'fas fa-times-circle text-red-600 mr-1';
+                                                }
+                                            @endphp
+                                            <span class="px-2 py-1 inline-flex items-center text-xs leading-5 font-semibold rounded-full {{ $stockClass }}">
+                                                <i class="{{ $stockIcon }}"></i>
+                                                {{ $product->stock }} unid.
                                             </span>
                                         </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm text-gray-900 hidden md:table-cell">
-                                            {{ $product->categoria }}
+                                            <span class="px-2 py-1 bg-gray-100 text-gray-800 rounded-full text-xs">
+                                                {{ $product->categoria }}
+                                            </span>
                                         </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm text-gray-900 hidden md:table-cell">
-                                            <img src="{{ $product->imagen }}" alt="{{ $product->nombre_producto }}"
-                                                 class="h-10 w-10 object-cover rounded">
+                                            @if($product->imagen)
+                                                <img src="{{ $product->imagen }}" alt="{{ $product->nombre_producto }}"
+                                                     class="h-10 w-10 object-cover rounded-lg shadow-sm border border-gray-200">
+                                            @else
+                                                <div class="h-10 w-10 rounded-lg bg-gray-100 flex items-center justify-center">
+                                                    <i class="fas fa-image text-gray-400"></i>
+                                                </div>
+                                            @endif
                                         </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm font-medium">
-                                            <a href="{{ route('products.edit', $product->id) }}"
-                                               class="text-blue-600 hover:text-blue-900 mr-2 lg:mr-3">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <form action="{{ route('products.destroy', $product->id) }}" method="POST"
-                                                  onsubmit="return confirm('Are you sure you want to delete this product?');"
-                                                  style="display:inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="text-red-600 hover:text-red-900"><i
-                                                        class="fas fa-trash"></i></button>
-                                            </form>
+                                            <div class="flex space-x-2">
+                                                <a href="{{ route('products.edit', $product->id) }}"
+                                                   class="text-blue-600 hover:text-blue-900 bg-blue-50 hover:bg-blue-100 p-1.5 rounded-md transition-colors">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <form action="{{ route('products.destroy', $product->id) }}" method="POST"
+                                                      onsubmit="return confirm('¿Está seguro de que desea eliminar este producto?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="text-red-600 hover:text-red-900 bg-red-50 hover:bg-red-100 p-1.5 rounded-md transition-colors">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
                             @else
                                 <tr>
-                                    <td colspan="6" class="px-4 lg:px-6 py-4 text-center text-gray-500">
-                                        No hay productos registrados.
+                                    <td colspan="6" class="px-4 lg:px-6 py-8 text-center text-gray-500">
+                                        <div class="flex flex-col items-center justify-center">
+                                            <i class="fas fa-box-open text-gray-300 text-3xl mb-2"></i>
+                                            <p>No hay productos registrados.</p>
+                                            <a href="{{ route('products.create') }}" class="mt-2 text-blue-600 hover:text-blue-800 text-sm">
+                                                <i class="fas fa-plus-circle mr-1"></i> Añadir el primer producto
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                             @endif
@@ -324,9 +394,6 @@
                                 </th>
                                 <th scope="col" class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
                                     Fecha de Pedido
-                                </th>
-                                <th scope="col" class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Acciones
                                 </th>
                             </tr>
                             </thead>
@@ -407,24 +474,11 @@
                                                 {{ $order->created_at->format('H:i') }}
                                             </div>
                                         </td>
-                                        <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm font-medium">
-                                            <div class="flex space-x-2">
-                                                <a href="#" class="text-indigo-600 hover:text-indigo-900" title="Ver detalles">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <a href="#" class="text-blue-600 hover:text-blue-900" title="Editar pedido">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <button class="text-red-600 hover:text-red-900" title="Cancelar pedido">
-                                                    <i class="fas fa-ban"></i>
-                                                </button>
-                                            </div>
-                                        </td>
                                     </tr>
                                 @endforeach
                             @else
                                 <tr>
-                                    <td colspan="6" class="px-4 lg:px-6 py-8 text-center text-gray-500">
+                                    <td colspan="5" class="px-4 lg:px-6 py-8 text-center text-gray-500">
                                         <div class="flex flex-col items-center justify-center">
                                             <i class="fas fa-shopping-cart text-gray-300 text-3xl mb-2"></i>
                                             <p>No hay pedidos registrados.</p>
