@@ -310,25 +310,23 @@
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                             <tr>
-                                <th scope="col"
-                                    class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col" class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     ID Pedido
                                 </th>
-                                <th scope="col"
-                                    class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col" class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Info Cliente
                                 </th>
-                                <th scope="col"
-                                    class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col" class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Estado
                                 </th>
-                                <th scope="col"
-                                    class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
+                                <th scope="col" class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
                                     Total
                                 </th>
-                                <th scope="col"
-                                    class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
+                                <th scope="col" class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
                                     Fecha de Pedido
+                                </th>
+                                <th scope="col" class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Acciones
                                 </th>
                             </tr>
                             </thead>
@@ -339,68 +337,98 @@
                             @endphp
                             @if(count($orders) > 0)
                                 @foreach($orders as $order)
-                                    <tr>
+                                    <tr class="hover:bg-gray-50 transition-colors">
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap">
-                                            <div class="text-xs lg:text-sm text-gray-900">#{{ $order->id }}</div>
+                                            <div class="text-xs lg:text-sm font-medium text-gray-900">#{{ $order->id }}</div>
                                         </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap">
-                                            <div class="ml-3 lg:ml-4">
-                                                {{-- Mostrar user_id si existe, o customer_name si existe --}}
-                                                <div class="text-xs lg:text-sm font-medium text-gray-900">
-                                                    @if(isset($order->user_id))
-                                                        ID Usuario: {{ $order->user_id }}
-                                                    @elseif(isset($order->customer_name))
-                                                        {{ $order->customer_name }}
-                                                    @else
-                                                        N/A
+                                            <div class="flex items-center">
+                                                <div class="flex-shrink-0 h-8 w-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                                    <i class="fas fa-user text-blue-500"></i>
+                                                </div>
+                                                <div class="ml-3 lg:ml-4">
+                                                    <div class="text-xs lg:text-sm font-medium text-gray-900">
+                                                        @if(isset($order->user_id))
+                                                            ID Usuario: {{ $order->user_id }}
+                                                        @elseif(isset($order->customer_name))
+                                                            {{ $order->customer_name }}
+                                                        @else
+                                                            N/A
+                                                        @endif
+                                                    </div>
+                                                    @if(isset($order->customer_email))
+                                                    <div class="text-xs text-gray-500">
+                                                        {{ $order->customer_email }}
+                                                    </div>
                                                     @endif
                                                 </div>
-                                                {{-- Mostrar customer_email si existe --}}
-                                                @if(isset($order->customer_email))
-                                                <div class="text-xs text-gray-500 sm:hidden">
-                                                    {{ $order->customer_email }}
-                                                </div>
-                                                @endif
                                             </div>
                                         </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap">
                                             @php
                                                 $statusClass = '';
+                                                $iconClass = '';
                                                 switch (strtolower($order->status)) {
                                                     case 'pendiente':
-                                                        $statusClass = 'bg-yellow-100 text-yellow-800';
+                                                        $statusClass = 'bg-yellow-100 text-yellow-800 border border-yellow-200';
+                                                        $iconClass = 'fas fa-clock text-yellow-600 mr-1';
                                                         break;
                                                     case 'procesando':
-                                                        $statusClass = 'bg-blue-100 text-blue-800';
+                                                        $statusClass = 'bg-blue-100 text-blue-800 border border-blue-200';
+                                                        $iconClass = 'fas fa-spinner fa-spin text-blue-600 mr-1';
                                                         break;
                                                     case 'completado':
-                                                        $statusClass = 'bg-green-100 text-green-800';
+                                                        $statusClass = 'bg-green-100 text-green-800 border border-green-200';
+                                                        $iconClass = 'fas fa-check text-green-600 mr-1';
                                                         break;
                                                     case 'cancelado':
-                                                        $statusClass = 'bg-red-100 text-red-800';
+                                                        $statusClass = 'bg-red-100 text-red-800 border border-red-200';
+                                                        $iconClass = 'fas fa-times text-red-600 mr-1';
                                                         break;
                                                     default:
-                                                        $statusClass = 'bg-gray-100 text-gray-800';
+                                                        $statusClass = 'bg-gray-100 text-gray-800 border border-gray-200';
+                                                        $iconClass = 'fas fa-question text-gray-600 mr-1';
                                                 }
                                             @endphp
-                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $statusClass }}">
+                                            <span class="px-2 py-1 inline-flex items-center text-xs leading-5 font-semibold rounded-full {{ $statusClass }}">
+                                                <i class="{{ $iconClass }}"></i>
                                                 {{ ucfirst($order->status) }}
                                             </span>
                                         </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap hidden sm:table-cell">
-                                            <div class="text-xs lg:text-sm text-gray-900">{{ number_format($order->total, 2) }} €</div>
+                                            <div class="text-xs lg:text-sm font-medium text-gray-900">{{ number_format($order->total, 2) }} €</div>
                                         </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm text-gray-500 hidden md:table-cell">
-                                            {{ $order->created_at->format('M d, Y H:i') }}
+                                            <div class="flex items-center">
+                                                <i class="far fa-calendar-alt mr-1 text-gray-400"></i>
+                                                {{ $order->created_at->format('M d, Y') }}
+                                                <span class="mx-1 text-gray-300">|</span>
+                                                <i class="far fa-clock mr-1 text-gray-400"></i>
+                                                {{ $order->created_at->format('H:i') }}
+                                            </div>
                                         </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm font-medium">
+                                            <div class="flex space-x-2">
+                                                <a href="#" class="text-indigo-600 hover:text-indigo-900" title="Ver detalles">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a href="#" class="text-blue-600 hover:text-blue-900" title="Editar pedido">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <button class="text-red-600 hover:text-red-900" title="Cancelar pedido">
+                                                    <i class="fas fa-ban"></i>
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
                             @else
                                 <tr>
-                                    <td colspan="6" class="px-4 lg:px-6 py-4 text-center text-gray-500">
-                                        No hay pedidos registrados.
+                                    <td colspan="6" class="px-4 lg:px-6 py-8 text-center text-gray-500">
+                                        <div class="flex flex-col items-center justify-center">
+                                            <i class="fas fa-shopping-cart text-gray-300 text-3xl mb-2"></i>
+                                            <p>No hay pedidos registrados.</p>
+                                        </div>
                                     </td>
                                 </tr>
                             @endif
