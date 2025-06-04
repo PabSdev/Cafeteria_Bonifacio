@@ -43,6 +43,10 @@
                     <i class="fas fa-box mr-3"></i>
                     <span>Productos</span>
                 </a>
+                <a href="#orders" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white">
+                    <i class="fas fa-receipt mr-3"></i>
+                    <span>Pedidos</span>
+                </a>
                 <div class="mt-auto px-4 py-2 text-gray-300">
                     <p class="text-xs uppercase font-bold">Cuenta</p>
                 </div>
