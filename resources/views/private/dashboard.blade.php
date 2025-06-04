@@ -388,7 +388,7 @@
                                             </span>
                                         </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap hidden sm:table-cell">
-                                            <div class="text-xs lg:text-sm text-gray-900">{{ number_format($order->total_amount, 2) }} €</div>
+                                            <div class="text-xs lg:text-sm text-gray-900">{{ number_format($order->total, 2) }} €</div>
                                         </td>
                                         <td class="px-4 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm text-gray-500 hidden md:table-cell">
                                             {{ $order->created_at->format('M d, Y H:i') }}
